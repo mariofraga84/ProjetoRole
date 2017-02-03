@@ -1,67 +1,64 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_Blank.cshtml";
 }
 @model ProjetoRole.Models.Entidades.FormularioLogin
 @{
     ViewBag.Title = "Efetuar login";
 }
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "CAUsuarios", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<div class="login-container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center m-b-md">
+                <h3>Efetuar login</h3>
+                <small>Acesse todas as funcionalidas!</small>
+            </div>
+            <div class="hpanel">
+                <div class="panel-body">
+                    @using (Html.BeginForm("Login", "CAUsuarios", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "loginForm", role = "form" }))
             {
-                @Html.AntiForgeryToken()
+                        @Html.AntiForgeryToken()
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @ViewBag.Erro
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.usuario.email, new { @class = "control-label" })
 
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @ViewBag.Erro
-                <div class="form-group">
-                    @Html.LabelFor(m => m.usuario.email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.usuario.email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.usuario.email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.usuario.senha, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.usuario.senha, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.usuario.senha, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.lembrarSenha)
-                            @Html.LabelFor(m => m.lembrarSenha)
+                            @Html.TextBoxFor(m => m.usuario.email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.usuario.email, "", new { @class = "help-block small" })
                         </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Efetuar login" class="btn btn-default" />
-                    </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Registrar-se como novo usuário", "Create") <br/>
-                    @Html.ActionLink("Login de Teste", "LoginTesteAsync")
-                </p>
-                @* Ativar isso assim que você tiver a confirmação de conta ativada para a funcionalidade de redefinição de senha
-                    <p>
-                        @Html.ActionLink("Esqueceu sua senha?", "ForgotPassword")
-                    </p>*@
-            }
-        </section>
-    </div>
-    <div class="col-md-4">
-        
-        Caso ainda não seja cadastrado @Html.ActionLink("Clique aqui", "Create") para senh cadastrar!<br />
-        É Gratis e rápido!
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.usuario.senha, new { @class = "control-label" })
 
+                            @Html.PasswordFor(m => m.usuario.senha, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.usuario.senha, "", new { @class = "help-block small" })
+                        </div>
+
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.lembrarSenha, new { @class = "i-checks" }) @Html.Label("Lembrar Senha?")
+                            <p class="help-block small">(se este for um computador privado)</p>
+                        </div>
+
+
+                                <input type="submit" value="Efetuar login" class="btn btn-success btn-block" />
+
+                                <p><br />
+                                    @Html.ActionLink("Novo usuário", "Create", "CAUsuarios", new { @class = "btn btn-default btn-block" }) <br />
+                                    @Html.ActionLink("Login de Teste", "LoginTesteAsync", "CAUsuarios", new { @class = "btn btn-default btn-block" })
+                                </p>
+                                @* Ativar isso assim que você tiver a confirmação de conta ativada para a funcionalidade de redefinição de senha
+                                    <p>
+                                        @Html.ActionLink("Esqueceu sua senha?", "ForgotPassword")
+                                    </p>*@
+                    }
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <strong>Projeto Rolé</strong> - Sempre em busca no melhor rolé! <br /> 2017 Copyright
+        </div>
+    </div>
+
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
