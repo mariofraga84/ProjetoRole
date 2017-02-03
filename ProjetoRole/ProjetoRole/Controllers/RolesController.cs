@@ -22,6 +22,7 @@ namespace ProjetoRole.Controllers
         {
             var role = db.Role.Include(r => r.CAUsuario).Include(r => r.TipoRole);
             return View(await role.ToListAsync());
+
         }
 
         // GET: Roles/Details/5
