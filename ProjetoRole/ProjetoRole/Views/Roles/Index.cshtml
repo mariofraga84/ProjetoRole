@@ -11,38 +11,32 @@
 </p>
 <table class="table">
     <tr>
+
         <th>
-            @Html.DisplayNameFor(model => model.CAUsuario.nome)
+            Capa
+        </th>
+
+       
+        <th>
+            Tipo
+        </th>
+       
+        <th>
+            Título
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TipoRole.descricao)
+           Descrição
+        </th>
+        
+        <th>
+           Total KM
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.dataHoraCadastro)
+           Ponto de Encontro
         </th>
+      
         <th>
-            @Html.DisplayNameFor(model => model.titulo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.descricaoRole)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.capa)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.totalKM)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.localPartida)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.localDestino)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dataRole)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.horaRole)
+           Data - Hora
         </th>
         <th></th>
     </tr>
@@ -50,37 +44,32 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CAUsuario.nome)
+            <img class="img-thumbnail" src="~/Arquivos/Imagens/Pequenas/@Html.DisplayFor(modelItem => item.capa)">
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoRole.descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dataHoraCadastro)
-        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.titulo)
         </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoRole.descricao)
+        </td>
+       
+       
         <td>
             @Html.DisplayFor(modelItem => item.descricaoRole)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.capa)
-        </td>
+       
         <td>
             @Html.DisplayFor(modelItem => item.totalKM)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.localPartida)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.localDestino)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dataRole)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.horaRole)
+       
+        <td align="center">
+            @string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(Html.DisplayFor(modelItem => item.dataRole).ToString())) <br/> 
+            @string.Format("{0:HH:mm}", Convert.ToDateTime(Html.DisplayFor(modelItem => item.horaRole).ToString()))
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.pkRole }) |

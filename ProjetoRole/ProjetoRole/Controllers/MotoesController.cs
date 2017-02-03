@@ -22,8 +22,7 @@ namespace ProjetoRole.Controllers
             CAUsuario usuario;
             if (Session["usuario"] == null)
             {
-                RedirectToAction("Login", "CAUsuarios");
-                return View();
+                return RedirectToAction("Login", "CAUsuarios");
             }
             else
             {

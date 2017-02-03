@@ -22,7 +22,6 @@ namespace ProjetoRole.Controllers
         {
             var role = db.Role.Include(r => r.CAUsuario).Include(r => r.TipoRole);
             return View(await role.ToListAsync());
-
         }
 
         // GET: Roles/Details/5
@@ -53,14 +52,58 @@ namespace ProjetoRole.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(FormulariosRoles form, HttpPostedFileBase FotoPerfil)
+        public async Task<ActionResult> Create(FormulariosRoles form, HttpPostedFileBase FotoCapa)
         {
             try
             {
+                
+                if (Session["usuario"] == null)
+                {
+                    return RedirectToAction("Login", "CAUsuarios");
+                }
+                CAUsuario usuario = (CAUsuario)Session["usuario"];
                 Role role = form.role;
-                role.fkUsuario = 1;
+                role.fkUsuario = usuario.pkUsuario;
                 role.dataHoraCadastro = DateTime.Now;
                 role.fkTipoRole = form.fkTipoRole;
+
+                if (form.autocomplete == null)
+                    ModelState.AddModelError("autocomplete", "Digite a Cidade");
+
+                if (role.titulo == null)
+                    ModelState.AddModelError("role.titulo", "Digite eo Titulo");
+
+                if (role.descricaoRole == null)
+                    ModelState.AddModelError("role.descricaoRole", "Entre com a Descrição");
+
+                if (role.totalKM == null)
+                {
+                    ModelState.AddModelError("role.totalKM", "Digite quantos Kms devem rodar");
+                }
+
+
+                if (role.localPartida == null)
+                {
+                    ModelState.AddModelError("role.localPartida", "Qual será o ponto de encontro/partida?");
+                }
+
+                DateTime data;
+
+                if (!DateTime.TryParse(role.dataRole.ToString(), out data))
+                {
+                    ModelState.AddModelError("role.dataRole", "Entre com uma data valida! ex: 20/05/2017");
+                }
+
+                if (role.dataRole == null)
+                {
+                    ModelState.AddModelError("role.dataRole", "Digite a data! ex: 20/05/2017");
+                }
+
+                if (role.horaRole == null)
+                {
+                    ModelState.AddModelError("role.horaRole", "Digite a hora! ex: 07:00");
+                }
+
 
 
 
@@ -69,13 +112,13 @@ namespace ProjetoRole.Controllers
                 role.fkLocalidade = loc.carregaLocalidadeGoogle(form.administrative_area_level_2, form.country, form.administrative_area_level_1, form.longitude.ToString(), form.latitude.ToString(), form.autocomplete.ToString());
 
                 ImageUpload imageUpload = new ImageUpload { Width = 800 };
-                if (FotoPerfil != null && FotoPerfil.FileName != null)
+                if (FotoCapa != null && FotoCapa.FileName != null)
                 {
-                    ImageResult imageResult = imageUpload.RenameUploadFile(FotoPerfil);
+                    ImageResult imageResult = imageUpload.RenameUploadFile(FotoCapa);
                     if (!imageResult.Success)
                     {
-                        ViewBag.Error = "Erro no Upload da Imagem";
-                        return View(ViewBag);
+                        ModelState.AddModelError("FotoCapa", "Digite a hora! ex: 07:00");
+                        return View();
                     }
                     else
                     {
@@ -94,11 +137,11 @@ namespace ProjetoRole.Controllers
                 ViewBag.fkUsuario = new SelectList(db.CAUsuario, "pkUsuario", "nome", role.fkUsuario);
                 ViewBag.fkTipoRole = new SelectList(db.TipoRole, "pkTipoRole", "descricao", role.fkTipoRole);
 
-                return RedirectToAction("../Roles/Index");
+                return View(form);
             }
             catch (Exception er)
             {
-
+                ModelState.AddModelError("titulo", er.StackTrace.ToString());
                 return View(form);
             }
 
