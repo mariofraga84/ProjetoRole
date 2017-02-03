@@ -1,0 +1,165 @@
+﻿@model ProjetoRole.Models.Entidades.FormularioUsuarios
+
+@{
+    ViewBag.Title = "Cadastro de Novo Usuário";
+}
+
+<h2>Registre-se</h2>
+
+
+@using (Html.BeginForm("Create", "CAUsuarios", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @ViewBag.Erro
+        <div class="form-group">
+            @Html.LabelFor(model => model.usuario.nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.usuario.nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.usuario.nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.usuario.apelido, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.usuario.apelido, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.usuario.apelido, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.usuario.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.usuario.email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.usuario.email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.usuario.senha, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.usuario.senha, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.usuario.senha, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="nome">Confirme a Senha</label>
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.senhaConfirmacao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.senhaConfirmacao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.usuario.fone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.usuario.fone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.usuario.fone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="nome">Minha Cidade</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.autocomplete, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.usuario.fkLocalidade, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.country)
+                @Html.HiddenFor(model => model.administrative_area_level_2)
+                @Html.HiddenFor(model => model.administrative_area_level_1)
+                @Html.HiddenFor(model => model.longitude)
+                @Html.HiddenFor(model => model.latitude)
+
+                @Html.ValidationMessageFor(model => model.autocomplete, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.usuario.foto, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.ValidationMessageFor(model => model.usuario.foto, "", new { @class = "text-danger" })
+            <div class="col-md-10">
+                <input type="file" class="form-control" id="FotoPerfil" name="FotoPerfil">
+                <span class="help-block">Formatos: gif, png, jpg. / tam. max: 2Mb</span>
+                
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Salvar Informações" class="btn btn-default" />
+            </div>
+        </div>
+
+
+
+    </div>
+
+    
+    <script>
+        
+      
+
+        // This example displays an address form, using the autocomplete feature
+        // of the Google Places API to help users fill in the information.
+
+        var placeSearch, autocomplete;
+        var componentForm = {
+
+            administrative_area_level_2: 'long_name',
+            administrative_area_level_1: 'short_name',
+            country: 'long_name'
+        };
+
+        function initAutocomplete() {
+            // Create the autocomplete object, restricting the search to geographical
+            // location types.
+            autocomplete = new google.maps.places.Autocomplete((document.getElementById('autocomplete')),
+                { types: ['geocode'] });
+
+            // When the user selects an address from the dropdown, populate the address
+            // fields in the form.
+            autocomplete.addListener('place_changed', fillInAddress);
+        }
+
+        // [START region_fillform]
+        function fillInAddress() {
+            // Get the place details from the autocomplete object.
+            var place = autocomplete.getPlace();
+
+            document.getElementById("latitude").value = place.geometry.location.lat();
+            document.getElementById("longitude").value = place.geometry.location.lng();
+
+            for (var component in componentForm) {
+                document.getElementById(component).value = '';
+                document.getElementById(component).disabled = false;
+            }
+
+            // Get each component of the address from the place details
+            // and fill the corresponding field on the form.
+            for (var i = 0; i < place.address_components.length; i++) {
+                var addressType = place.address_components[i].types[0];
+                if (componentForm[addressType]) {
+                    var val = place.address_components[i][componentForm[addressType]];
+                    document.getElementById(addressType).value = val;
+                }
+            }
+        }
+        // [END region_fillform]
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARsZAdKJtlMX_6g83BzAMkY4CGPtbu05k&signed_in=true&libraries=places&callback=initAutocomplete"
+            async defer></script>
+}
+  
+
+

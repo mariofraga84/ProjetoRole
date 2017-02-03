@@ -1,0 +1,66 @@
+﻿@model ProjetoRole.Models.Localidade
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Localidade</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.cidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.uf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.uf)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pais)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pais)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idFBLocalidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idFBLocalidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nomeCompletoLocal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nomeCompletoLocal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.coordenadas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.coordenadas)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.pkLocalidade }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

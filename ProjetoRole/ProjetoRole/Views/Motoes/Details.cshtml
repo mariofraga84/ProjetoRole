@@ -1,0 +1,58 @@
+﻿@model ProjetoRole.Models.Moto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Moto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Marca.DescricaoMarca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Marca.DescricaoMarca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nomeMoto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nomeMoto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modeloMoto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modeloMoto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.foto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.foto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ativa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ativa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.pkMoto }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

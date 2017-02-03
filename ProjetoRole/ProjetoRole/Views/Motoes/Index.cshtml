@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ProjetoRole.Models.Moto>
+
+@{
+    ViewBag.Title = "Minhas Motos";
+}
+
+<h2>Listagem de Minhas Motos</h2>
+
+<p>
+    @Html.ActionLink("Cadastrar Nova moto", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            Foto
+        </th>
+
+            
+        <th>
+           Modelo
+        </th>
+       
+        <th>
+            Ativa
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+
+        <td>
+            <img class="img-thumbnail" src="~/Arquivos/Imagens/Pequenas/@Html.DisplayFor(modelItem => item.foto)">
+           
+        </td>
+     
+               
+        <td>
+            @Html.DisplayFor(modelItem => item.modeloMoto)
+        </td>
+      
+        <td>
+            @Html.CheckBoxFor(modelItem => item.ativa.Value)
+        </td>
+        <td>
+            @Html.ActionLink("Alterar", "Edit", new { id=item.pkMoto }) 
+        </td>
+    </tr>
+}
+
+</table>

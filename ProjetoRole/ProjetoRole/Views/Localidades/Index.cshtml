@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ProjetoRole.Models.Localidade>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.cidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.uf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pais)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idFBLocalidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nomeCompletoLocal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.coordenadas)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.cidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.uf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pais)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idFBLocalidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomeCompletoLocal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.coordenadas)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.pkLocalidade }) |
+            @Html.ActionLink("Details", "Details", new { id=item.pkLocalidade }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.pkLocalidade })
+        </td>
+    </tr>
+}
+
+</table>
