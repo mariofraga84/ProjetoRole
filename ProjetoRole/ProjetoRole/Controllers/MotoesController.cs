@@ -21,8 +21,8 @@ namespace ProjetoRole.Controllers
         {
             CAUsuario usuario;
             if (Session["usuario"] == null)
-            {
-                return RedirectToAction("Login", "CAUsuarios");
+            {              
+                return RedirectToAction("Login", "CAUsuarios", new { urlRetorno= Request.Url.AbsolutePath });
             }
             else
             {

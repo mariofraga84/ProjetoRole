@@ -225,9 +225,11 @@ namespace ProjetoRole.Controllers
         }
 
         // GET: CAUsuarios/Login
-        public ActionResult Login()
+        public ActionResult Login(string urlRetorno)
         {
-            return View();
+            FormularioLogin form = new FormularioLogin();
+            form.urlRetorno = urlRetorno;
+            return View(form);
         }
 
         /// <summary>
@@ -258,7 +260,15 @@ namespace ProjetoRole.Controllers
                         db.CALogAcesso.Add(log);
                         await db.SaveChangesAsync();
                         Session.Add("usuario", usuario);
-                        return RedirectToAction("Index");                        
+
+                        if (!string.IsNullOrEmpty(form.urlRetorno) && Url.IsLocalUrl(form.urlRetorno))
+                        {
+                            return Redirect(form.urlRetorno);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index");
+                        }                  
                     }                    
                 }
                 else
@@ -271,7 +281,6 @@ namespace ProjetoRole.Controllers
             }
             catch (Exception er)
             {
-
                 ModelState.AddModelError("usuario.senha", "Usuário ou senha não conferem!");
                 return View();
             }
@@ -404,7 +413,7 @@ namespace ProjetoRole.Controllers
                     }
                 }
 
-                db.CAUsuario.Add(usuario);
+                db.Entry(usuario).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("../CAUsuarios/Index");
             }

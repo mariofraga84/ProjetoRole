@@ -2,7 +2,7 @@
 </div>
 <div id="logo" class="light-version">
     <span>
-        Homer Theme
+        Projeto Rolé
     </span>
 </div>
 <nav role="navigation">
@@ -10,11 +10,7 @@
     <div class="small-logo">
         <span class="text-primary">HOMER APP</span>
     </div>
-    <form role="search" class="navbar-form-custom" method="post" action="#">
-        <div class="form-group">
-            <input type="text" placeholder="Search something special" class="form-control" name="search">
-        </div>
-    </form>
+
     <div class="mobile-menu">
         <button type="button" class="navbar-toggle mobile-menu-toggle" data-toggle="collapse" data-target="#mobile-collapse">
             <i class="fa fa-chevron-down"></i>
@@ -22,13 +18,13 @@
         <div class="collapse mobile-navbar" id="mobile-collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <a class="" href="@Url.Action("Login", "CommonViews")">Login</a>
+                    <a class="" href="@Url.Action("Login", "CAUsuarios")">Login</a>
                 </li>
                 <li>
-                    <a class="" href="@Url.Action("Register", "CommonViews")">Logout</a>
+                    <a class="" href="@Url.Action("LogOff", "CAUsuarios")">Sair</a>
                 </li>
                 <li>
-                    <a class="" href="@Url.Action("ProfilePage", "AppViews")">Profile</a>
+                    <a class="" href="@Url.Action("Meus Dados", "CAUsuarios")">Meus Dados</a>
                 </li>
             </ul>
         </div>
@@ -42,12 +38,12 @@
                 <ul class="dropdown-menu hdropdown notification animated flipInX">
                     <li>
                         <a>
-                            <span class="label label-success">NEW</span> It is a long established.
+                            <span class="label label-warning">!</span> Sem notificações no momento
                         </a>
                     </li>
-                    <li>
+                 <!--  <li>
                         <a>
-                            <span class="label label-warning">WAR</span> There are many variations.
+                            <span class="label label-success">WAR</span> There are many variations.
                         </a>
                     </li>
                     <li>
@@ -55,7 +51,8 @@
                             <span class="label label-danger">ERR</span> Contrary to popular belief.
                         </a>
                     </li>
-                    <li class="summary"><a href="#">See all notifications</a></li>
+                     
+                    <li class="summary"><a href="#">Todas as Notificações</a></li>  -->
                 </ul>
             </li>
             <li class="dropdown">
@@ -67,87 +64,34 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <a href="@Url.Action("Projects", "AppViews")">
-                                        <i class="pe pe-7s-portfolio text-info"></i>
-                                        <h5>Projects</h5>
+                                    <a href="@Url.Action("Projectsx", "AppViewsx")">
+                                        <i class="pe fa fa-road text-info"></i>
+                                        <h5>Passeios / Eventos</h5>
+                                    </a>
+                                </td>
+                              
+                                <td>
+                                    <a href="@Url.Action("index", "Motoes")">
+                                        <i class="pe fa fa-motorcycle text-warning"></i>
+                                        <h5>Minhas Motos</h5>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="@Url.Action("Mailbox", "AppViews")">
-                                        <i class="pe pe-7s-mail text-warning"></i>
-                                        <h5>Email</h5>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="@Url.Action("Contacts", "AppViews")">
+                                    <a href="@Url.Action("MeusDados", "CAUsuarios")">
                                         <i class="pe pe-7s-users text-success"></i>
-                                        <h5>Contacts</h5>
+                                        <h5>Meus Dados</h5>
                                     </a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <a href="@Url.Action("Forum", "AppViews")">
-                                        <i class="pe pe-7s-comment text-info"></i>
-                                        <h5>Forum</h5>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="@Url.Action("Index", "Analytics")">
-                                        <i class="pe pe-7s-graph1 text-danger"></i>
-                                        <h5>Analytics</h5>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="@Url.Action("FileManager", "AppViews")">
-                                        <i class="pe pe-7s-box1 text-success"></i>
-                                        <h5>Files</h5>
-                                    </a>
-                                </td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                 </div>
             </li>
+            
+            
             <li class="dropdown">
-                <a class="dropdown-toggle label-menu-corner" href="#" data-toggle="dropdown">
-                    <i class="pe-7s-mail"></i>
-                    <span class="label label-success">4</span>
-                </a>
-                <ul class="dropdown-menu hdropdown animated flipInX">
-                    <div class="title">
-                        You have 4 new messages
-                    </div>
-                    <li>
-                        <a>
-                            It is a long established.
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            There are many variations.
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            Lorem Ipsum is simply dummy.
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            Contrary to popular belief.
-                        </a>
-                    </li>
-                    <li class="summary"><a href="#">See All Messages</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#" id="sidebar" class="right-sidebar-toggle">
-                    <i class="pe-7s-upload pe-7s-news-paper"></i>
-                </a>
-            </li>
-            <li class="dropdown">
-                <a href="login.html">
+                <a href="@Url.Action("LogOff", "CAUsuarios")">
                     <i class="pe-7s-upload pe-rotate-90"></i>
                 </a>
             </li>

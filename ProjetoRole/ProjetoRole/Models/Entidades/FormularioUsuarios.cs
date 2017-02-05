@@ -44,6 +44,7 @@ namespace ProjetoRole.Models.Entidades
         public ProjetoRole.Models.CAUsuario usuario { get; set; }
         public Boolean lembrarSenha { get; set; }
         public string Erro { get; set; }
+        public string urlRetorno { get; set; }
 
     }
 }

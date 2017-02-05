@@ -20,6 +20,7 @@
                         <hr />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @ViewBag.Erro
+                        @Html.HiddenFor(m => m.urlRetorno)
                         <div class="form-group">
                             @Html.LabelFor(m => m.usuario.email, new { @class = "control-label" })
 
