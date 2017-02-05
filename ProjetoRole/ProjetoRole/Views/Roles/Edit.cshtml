@@ -1,122 +1,248 @@
-﻿@model ProjetoRole.Models.Role
+﻿@model ProjetoRole.Models.Entidades.FormulariosRoles
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Cadastro de Passeio";
 }
 
-<h2>Edit</h2>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Role</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.pkRole)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.fkUsuario, "fkUsuario", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("fkUsuario", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.fkUsuario, "", new { @class = "text-danger" })
+<div class="small-header transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right">
+                <button type="button" class="btn btn-default btn-lg">
+                    <span class="fa fa-mail-reply" aria-hidden="true"> </span> @Html.ActionLink("Cancelar / Voltar", "Index")
+                </button>
             </div>
+            <h2 class="font-light m-b-xs">
+                Cadastro de Novo Passeio / Evento
+            </h2>
+            <small>Complete da forma mais detalhada possivel! </small>
         </div>
+    </div>
+</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.fkTipoRole, "fkTipoRole", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("fkTipoRole", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.fkTipoRole, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="content animate-panel">
+    <div class="row">
+        <div class="hpanel">
+            <div class="panel-body">
+                @using (Html.BeginForm("Edit", "Roles", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.dataHoraCadastro, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.dataHoraCadastro, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.dataHoraCadastro, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.titulo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.titulo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.titulo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.descricaoRole, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.descricaoRole, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.descricaoRole, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.capa, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.capa, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.capa, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"> Qual o Tipo de Passeio?</label>
+                        <div class="col-sm-10">
+                            @Html.DropDownList("fkTipoRole", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.role.fkTipoRole, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.role.pkRole)
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.totalKM, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.totalKM, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.totalKM, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="nome">Cidade </label>
+                        <div class="col-sm-10">
+                            @Html.EditorFor(model => model.autocomplete, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.role.fkLocalidade, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.country)
+                            @Html.HiddenFor(model => model.administrative_area_level_2)
+                            @Html.HiddenFor(model => model.administrative_area_level_1)
+                            @Html.HiddenFor(model => model.longitude)
+                            @Html.HiddenFor(model => model.latitude)
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.localPartida, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.localPartida, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.localPartida, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.localDestino, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.localDestino, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.localDestino, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.dataRole, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.dataRole, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.dataRole, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            Título do Passeio
+                        </label>
+                        <div class="col-sm-10">
+                            @Html.EditorFor(model => model.role.titulo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.role.titulo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.horaRole, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.horaRole, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.horaRole, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            Descrição
+                        </label>
+                        <div class="col-sm-10">
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+
+
+                            @Html.TextAreaFor(model => model.role.descricaoRole, 6, 55, new { htmlAttributes = new { @class = "summernote" } })
+                            @Html.ValidationMessageFor(model => model.role.descricaoRole, "", new { @class = "text-danger" })
+
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            Quantos Kms acha que irão rodar?
+                        </label>
+                        <div class="col-sm-10">
+                            @Html.EditorFor(model => model.role.totalKM, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.role.totalKM, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                Ponto de Encontro (Partida)
+                            </label>
+                            <div class="col-sm-10">
+                                @Html.EditorFor(model => model.role.localPartida, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.role.localPartida, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                Destino
+                            </label>
+                            <div class="col-sm-10">
+                                @Html.EditorFor(model => model.role.localDestino, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.role.localDestino, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                Data do Passeio
+                            </label>
+                            <div class="col-sm-10">
+                                @Html.EditorFor(model => model.role.dataRole, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.role.dataRole, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                Hora do Passeio
+                            </label>
+                            <div class="col-sm-10">
+                                @Html.EditorFor(model => model.role.horaRole, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.role.horaRole, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                Capa do Anuncio do Passeio
+                            </label>
+                            <div class="col-sm-2">
+                                <img class="img-thumbnail left" src="~/Arquivos/Imagens/Medias/@Html.DisplayFor(model => model.role.capa)">
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="file" class="form-control" id="FotoCapa" name="FotoCapa">
+                                <span class="help-block">Formatos: gif, png, jpg. / tam. max: 2Mb</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                Ativo?
+                            </label>
+                            <div class="col-sm-10">
+                                @Html.RadioButtonFor(model => model.role.ativo, true) Sim
+                                @Html.RadioButtonFor(model => model.role.ativo, false) Não
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Cadastrar Passeio / Evento" class="btn btn-default" />
+                            </div>
+                        </div>
+
+
+                        <script>
+                            // This example displays an address form, using the autocomplete feature
+                            // of the Google Places API to help users fill in the information.
+
+                            var placeSearch, autocomplete;
+                            var componentForm = {
+
+                                administrative_area_level_2: 'long_name',
+                                administrative_area_level_1: 'short_name',
+                                country: 'long_name'
+                            };
+
+                            function initAutocomplete() {
+                                // Create the autocomplete object, restricting the search to geographical
+                                // location types.
+                                autocomplete = new google.maps.places.Autocomplete((document.getElementById('autocomplete')),
+                                    { types: ['geocode'] });
+
+                                // When the user selects an address from the dropdown, populate the address
+                                // fields in the form.
+                                autocomplete.addListener('place_changed', fillInAddress);
+                            }
+
+                            // [START region_fillform]
+                            function fillInAddress() {
+                                // Get the place details from the autocomplete object.
+                                var place = autocomplete.getPlace();
+
+                                document.getElementById("latitude").value = place.geometry.location.lat();
+                                document.getElementById("longitude").value = place.geometry.location.lng();
+
+                                for (var component in componentForm) {
+                                    document.getElementById(component).value = '';
+                                    document.getElementById(component).disabled = false;
+                                }
+
+                                // Get each component of the address from the place details
+                                // and fill the corresponding field on the form.
+                                for (var i = 0; i < place.address_components.length; i++) {
+                                    var addressType = place.address_components[i].types[0];
+                                    if (componentForm[addressType]) {
+                                        var val = place.address_components[i][componentForm[addressType]];
+                                        document.getElementById(addressType).value = val;
+                                    }
+                                }
+                            }
+        // [END region_fillform]
+
+
+                        </script>
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARsZAdKJtlMX_6g83BzAMkY4CGPtbu05k&signed_in=true&libraries=places&callback=initAutocomplete"
+                                async defer></script>
+
+                }
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
+
+
+@section Styles {
+    @Styles.Render("~/bundles/summernote/css")
+}
+
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/summernote/js")
+
+    <script type="text/javascript">
+
+                            $(document).ready(function () {
+                                $('#role_descricaoRole').summernote({
+                                    height: "100px"
+                                });
+                            });
+                            var postForm = function () {
+                                var content = $('textarea[name="role.descricaoRole"]').html($('#role_descricaoRole').code());
+                            }
+
+
+
+    </script>
 }

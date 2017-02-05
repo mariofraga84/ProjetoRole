@@ -70,6 +70,7 @@ namespace ProjetoRole.Models
 
         public virtual Localidade Localidade { get; set; }
 
+        public bool? ativo { get; set; }
 
     }
 }

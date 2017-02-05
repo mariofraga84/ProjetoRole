@@ -2276,8 +2276,6 @@
     <Content Include="Views\CAUsuarios\Edit.cshtml" />
     <Content Include="Views\CAUsuarios\Index.cshtml" />
     <Content Include="Views\Motoes\Create.cshtml" />
-    <Content Include="Views\Motoes\Delete.cshtml" />
-    <Content Include="Views\Motoes\Details.cshtml" />
     <Content Include="Views\Motoes\Edit.cshtml" />
     <Content Include="Views\Motoes\Index.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />

@@ -51,6 +51,7 @@ namespace ProjetoRole.Controllers
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(FormulariosRoles form, HttpPostedFileBase FotoCapa)
         {
@@ -103,10 +104,7 @@ namespace ProjetoRole.Controllers
                 {
                     ModelState.AddModelError("role.horaRole", "Digite a hora! ex: 07:00");
                 }
-
-
-
-
+                
 
                 LocalidadesController loc = new LocalidadesController();
                 role.fkLocalidade = loc.carregaLocalidadeGoogle(form.administrative_area_level_2, form.country, form.administrative_area_level_1, form.longitude.ToString(), form.latitude.ToString(), form.autocomplete.ToString());
@@ -125,6 +123,8 @@ namespace ProjetoRole.Controllers
                         role.capa = imageResult.ImageName;
                     }
                 }
+
+                role.ativo = true;
 
 
                 if (ModelState.IsValid)
@@ -151,6 +151,7 @@ namespace ProjetoRole.Controllers
         // GET: Roles/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -162,7 +163,16 @@ namespace ProjetoRole.Controllers
             }
             ViewBag.fkUsuario = new SelectList(db.CAUsuario, "pkUsuario", "nome", role.fkUsuario);
             ViewBag.fkTipoRole = new SelectList(db.TipoRole, "pkTipoRole", "descricao", role.fkTipoRole);
-            return View(role);
+            FormulariosRoles form = new FormulariosRoles();
+            form.role = role;
+            form.administrative_area_level_2 = role.Localidade.cidade;
+            form.administrative_area_level_1 = role.Localidade.uf;
+            form.country = role.Localidade.pais;
+            form.autocomplete = role.Localidade.nomeCompletoLocal;
+            form.longitude = role.Localidade.coordenadas.Longitude.ToString();
+            form.latitude = role.Localidade.coordenadas.Latitude.ToString();
+
+            return View(form);
         }
 
         // POST: Roles/Edit/5
@@ -170,8 +180,90 @@ namespace ProjetoRole.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "pkRole,fkUsuario,fkTipoRole,dataHoraCadastro,titulo,descricaoRole,capa,totalKM,localPartida,localDestino,dataRole,horaRole")] Role role)
+        [ValidateInput(false)]
+        public async Task<ActionResult> Edit(FormulariosRoles form, HttpPostedFileBase FotoCapa)
         {
+            if (Session["usuario"] == null)
+            {
+                return RedirectToAction("Login", "CAUsuarios");
+            }
+            CAUsuario usuario = (CAUsuario)Session["usuario"];
+
+            Role role = db.Role.Find(form.role.pkRole);
+
+            if(role.fkUsuario != usuario.pkUsuario)
+            {
+                return RedirectToAction("Error_Two", "CommonViews", new { erro = "Ocorreu um erro na sua tentativa de Acesso" });
+            }
+
+            
+
+            if (form.autocomplete == null)
+                ModelState.AddModelError("autocomplete", "Digite a Cidade");
+
+            if (role.titulo == null)
+                ModelState.AddModelError("role.titulo", "Digite eo Titulo");
+
+            if (role.descricaoRole == null)
+                ModelState.AddModelError("role.descricaoRole", "Entre com a Descrição");
+
+            if (role.totalKM == null)
+            {
+                ModelState.AddModelError("role.totalKM", "Digite quantos Kms devem rodar");
+            }
+
+            if (role.localPartida == null)
+            {
+                ModelState.AddModelError("role.localPartida", "Qual será o ponto de encontro/partida?");
+            }
+
+            DateTime data;
+
+            if (!DateTime.TryParse(role.dataRole.ToString(), out data))
+            {
+                ModelState.AddModelError("role.dataRole", "Entre com uma data valida! ex: 20/05/2017");
+            }
+
+            if (role.dataRole == null)
+            {
+                ModelState.AddModelError("role.dataRole", "Digite a data! ex: 20/05/2017");
+            }
+
+            if (role.horaRole == null)
+            {
+                ModelState.AddModelError("role.horaRole", "Digite a hora! ex: 07:00");
+            }
+
+
+            LocalidadesController loc = new LocalidadesController();
+            role.fkLocalidade = loc.carregaLocalidadeGoogle(form.administrative_area_level_2, form.country, form.administrative_area_level_1, form.longitude.ToString(), form.latitude.ToString(), form.autocomplete.ToString());
+
+            ImageUpload imageUpload = new ImageUpload { Width = 800 };
+            if (FotoCapa != null && FotoCapa.FileName != null)
+            {
+                ImageResult imageResult = imageUpload.RenameUploadFile(FotoCapa);
+                if (!imageResult.Success)
+                {
+                    ModelState.AddModelError("FotoCapa", "Digite a hora! ex: 07:00");
+                    return View();
+                }
+                else
+                {
+                    role.capa = imageResult.ImageName;
+                }
+            }
+
+            role.ativo = form.role.ativo;
+            role.fkTipoRole = form.fkTipoRole;
+            role.titulo = form.role.titulo;
+            role.descricaoRole = form.role.descricaoRole;
+            role.totalKM = form.role.totalKM;
+            role.localPartida = form.role.localPartida;
+            role.localDestino = form.role.descricaoRole;
+            role.dataRole = form.role.dataRole;
+            role.horaRole = form.role.horaRole;
+
+
             if (ModelState.IsValid)
             {
                 db.Entry(role).State = EntityState.Modified;
