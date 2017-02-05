@@ -21,6 +21,10 @@ namespace ProjetoRole.Models.Entidades
 
         public string autocomplete { get; set; }
 
+        public string msgErro { get; set; }
+
+      //  public object ViewBag { get; set; }
+
 
     }
 
@@ -38,6 +42,8 @@ namespace ProjetoRole.Models.Entidades
         public string latitude { get; set; }
 
         public string autocomplete { get; set; }
+
+        public string msgErro { get; set; }
     }
     public class FormularioLogin
     {

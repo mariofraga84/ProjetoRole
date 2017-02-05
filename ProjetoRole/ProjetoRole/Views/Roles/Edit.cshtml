@@ -31,6 +31,12 @@
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+                    if (ViewBag.msgErro != null)
+                    {
+                        <div class="alert alert-danger text-center">
+                            <strong>Atenção!</strong> @Html.Raw(ViewBag.msgErro)
+                        </div>
+                    }
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label"> Qual o Tipo de Passeio?</label>

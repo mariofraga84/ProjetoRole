@@ -172,6 +172,7 @@ namespace ProjetoRole.Controllers
             form.longitude = role.Localidade.coordenadas.Longitude.ToString();
             form.latitude = role.Localidade.coordenadas.Latitude.ToString();
 
+
             return View(form);
         }
 
@@ -183,6 +184,9 @@ namespace ProjetoRole.Controllers
         [ValidateInput(false)]
         public async Task<ActionResult> Edit(FormulariosRoles form, HttpPostedFileBase FotoCapa)
         {
+           
+                
+
             if (Session["usuario"] == null)
             {
                 return RedirectToAction("Login", "CAUsuarios");
@@ -191,7 +195,11 @@ namespace ProjetoRole.Controllers
 
             Role role = db.Role.Find(form.role.pkRole);
 
-            if(role.fkUsuario != usuario.pkUsuario)
+            try
+            {
+
+
+                if (role.fkUsuario != usuario.pkUsuario)
             {
                 return RedirectToAction("Error_Two", "CommonViews", new { erro = "Ocorreu um erro na sua tentativa de Acesso" });
             }
@@ -259,7 +267,7 @@ namespace ProjetoRole.Controllers
             role.descricaoRole = form.role.descricaoRole;
             role.totalKM = form.role.totalKM;
             role.localPartida = form.role.localPartida;
-            role.localDestino = form.role.descricaoRole;
+            role.localDestino = form.role.localDestino;
             role.dataRole = form.role.dataRole;
             role.horaRole = form.role.horaRole;
 
@@ -272,7 +280,16 @@ namespace ProjetoRole.Controllers
             }
             ViewBag.fkUsuario = new SelectList(db.CAUsuario, "pkUsuario", "nome", role.fkUsuario);
             ViewBag.fkTipoRole = new SelectList(db.TipoRole, "pkTipoRole", "descricao", role.fkTipoRole);
-            return View(role);
+            return View(form);
+
+            }
+            catch (Exception er)
+            {
+                ViewBag.msgErro = "Ocorreu um Erro: <br>" + er.Message.ToString();
+                ViewBag.fkUsuario = new SelectList(db.CAUsuario, "pkUsuario", "nome", role.fkUsuario);
+                ViewBag.fkTipoRole = new SelectList(db.TipoRole, "pkTipoRole", "descricao", role.fkTipoRole);
+                return View(form);
+            }
         }
 
         // GET: Roles/Delete/5

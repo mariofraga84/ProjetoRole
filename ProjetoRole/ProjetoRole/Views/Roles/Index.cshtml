@@ -1,82 +1,207 @@
 ﻿@model IEnumerable<ProjetoRole.Models.Role>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Meus Passeios / Eventos Cadastrados";
 }
 
-<h2>Index</h2>
+<div class="small-header transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right">
+                <button type="button" class="btn btn-default btn-success" style="color:green">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @Html.ActionLink("Cadastrar Novo", "Create")
+                </button>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Meus Passeios / Eventos Cadastrados
+            </h2>
+            <small>Listagem dos Meus Passeios / Eventos Cadastrados </small>
+        </div>
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
+<div class="content animate-panel">
+    <div class="row">
+        <div class="col-lg-12">
 
-        <th>
-            Capa
-        </th>
+            @if (Model.Where(o => o.ativo == true).Any())
+            {
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                            <a class="closebox"><i class="fa fa-times"></i></a>
+                        </div>
+                        Cadastros Ativos
+                    </div>
 
-       
-        <th>
-            Tipo
-        </th>
-       
-        <th>
-            Título
-        </th>
-        <th>
-           Descrição
-        </th>
-        
-        <th>
-           Total KM
-        </th>
-        <th>
-           Ponto de Encontro
-        </th>
-      
-        <th>
-           Data - Hora
-        </th>
-        <th></th>
-    </tr>
+                    <div class="panel-body">
+                        <div class="table-responsive">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <img class="img-thumbnail" src="~/Arquivos/Imagens/Pequenas/@Html.DisplayFor(modelItem => item.capa)">
-        </td>
+                            <table cellpadding="1" cellspacing="1" class="table table-condensed table-striped">
+                                <thead>
+                                    <tr>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.titulo)
-        </td>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoRole.descricao)
-        </td>
-       
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.descricaoRole)
-        </td>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.totalKM)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.localPartida)
-        </td>
-       
-        <td align="center">
-            @string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(Html.DisplayFor(modelItem => item.dataRole).ToString())) <br/> 
-            @string.Format("{0:HH:mm}", Convert.ToDateTime(Html.DisplayFor(modelItem => item.horaRole).ToString()))
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.pkRole }) |
-            @Html.ActionLink("Details", "Details", new { id=item.pkRole }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.pkRole })
-        </td>
-    </tr>
-}
+                                        <th>
+                                            Capa
+                                        </th>
 
-</table>
+                                        <th>
+                                            Título
+                                        </th>
+
+
+                                        <th>
+                                            Tipo
+                                        </th>
+
+                                        <th>
+                                            Total KM
+                                        </th>
+                                      
+                                        <th>
+                                            Data - Hora
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Where(o => o.ativo == true))
+                                    {
+                                        <tr>
+                                            <td>
+                                                <img class="img-thumbnail" src="~/Arquivos/Imagens/Pequenas/@Html.DisplayFor(modelItem => item.capa)">
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.titulo)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TipoRole.descricao)
+                                            </td>
+
+
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.totalKM) Km
+                                            </td>
+                                         
+                                            <td>
+                                                @string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(Html.DisplayFor(modelItem => item.dataRole).ToString())) -
+                                                @string.Format("{0:HH:mm}", Convert.ToDateTime(Html.DisplayFor(modelItem => item.horaRole).ToString()))
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink(" Editar", "Edit", new { id = item.pkRole }, new { @class = "fa fa-edit big" })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="panel-footer">
+                        Total de Eventos Ativos: @Model.Count()
+                    </div>
+                </div>
+            }
+
+            @if (Model.Where(o => o.ativo == false).Any())
+            {
+
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                            <a class="closebox"><i class="fa fa-times"></i></a>
+                        </div>
+                        Cadastros Inativos
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="table-responsive">
+
+                            <table cellpadding="1" cellspacing="1" class="table table-condensed table-striped">
+                                <thead>
+                                    <tr>
+
+                                        <th>
+                                            Capa
+                                        </th>
+
+                                        <th>
+                                            Título
+                                        </th>
+
+
+                                        <th>
+                                            Tipo
+                                        </th>
+
+
+
+                                        <th>
+                                            Total KM
+                                        </th>
+                                        <th>
+                                            Ponto de Encontro
+                                        </th>
+
+                                        <th>
+                                            Data - Hora
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Where(o => o.ativo == false))
+                                    {
+                                        <tr>
+                                            <td>
+                                                <img class="img-thumbnail" src="~/Arquivos/Imagens/Pequenas/@Html.DisplayFor(modelItem => item.capa)">
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.titulo)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TipoRole.descricao)
+                                            </td>
+
+
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.totalKM) Km
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.localPartida)
+                                            </td>
+
+                                            <td align="center">
+                                                @string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(Html.DisplayFor(modelItem => item.dataRole).ToString())) <br />
+                                                @string.Format("{0:HH:mm}", Convert.ToDateTime(Html.DisplayFor(modelItem => item.horaRole).ToString()))
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink(" Editar", "Edit", new { id = item.pkRole }, new { @class = "fa fa-edit big" })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="panel-footer">
+                        Total de Eventos Ativos: @Model.Count()
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>

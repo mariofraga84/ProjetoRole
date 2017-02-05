@@ -63,6 +63,14 @@ namespace ProjetoRole.Controllers
                 usuario.fkInstancia = 1;
                 usuario.fkPerfil = 1;
 
+                if (db.CAUsuario.Where(o => o.email.Equals(form.usuario.email.ToLower())).Any())
+                {
+                    ModelState.Remove("usuario.nome");
+                    ViewBag.msgErro = "Já existe um cadastro com seu email! <br> <a href=\"Login/\"/> Clique aqui </a> para entrar com email e senha ou recuperar sua senha!";
+                    return View();
+                }
+
+
 
                 if (usuario.nome == null)
                     ModelState.AddModelError("usuario.nome", "Digite seu nome!");
@@ -121,6 +129,9 @@ namespace ProjetoRole.Controllers
                         usuario.foto = imageResult.ImageName;
                     }
                 }
+
+                usuario.email = usuario.email.ToLower();
+
 
                 db.CAUsuario.Add(usuario);
                 await db.SaveChangesAsync();
