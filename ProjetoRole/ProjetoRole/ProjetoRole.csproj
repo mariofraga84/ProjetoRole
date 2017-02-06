@@ -189,6 +189,7 @@
     <Compile Include="Models\CAPerfil.cs" />
     <Compile Include="Models\CAUsuario.cs" />
     <Compile Include="Models\Comentario.cs" />
+    <Compile Include="Models\Entidades\EntidadePublicas.cs" />
     <Compile Include="Models\Entidades\FormularioUsuarios.cs" />
     <Compile Include="Models\Foto.cs" />
     <Compile Include="Models\Localidade.cs" />

@@ -122,6 +122,9 @@ namespace ProjetoRole.Controllers
                     {
                         role.capa = imageResult.ImageName;
                     }
+                } else
+                {
+                    role.capa = "tipo" + role.fkTipoRole.ToString() + ".jpg";
                 }
 
                 role.ativo = true;
@@ -184,8 +187,6 @@ namespace ProjetoRole.Controllers
         [ValidateInput(false)]
         public async Task<ActionResult> Edit(FormulariosRoles form, HttpPostedFileBase FotoCapa)
         {
-           
-                
 
             if (Session["usuario"] == null)
             {

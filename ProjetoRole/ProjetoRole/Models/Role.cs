@@ -72,5 +72,9 @@ namespace ProjetoRole.Models
 
         public bool? ativo { get; set; }
 
+        public bool? publico { get; set; }
+
+        public bool? realizado { get; set; }
+
     }
 }
