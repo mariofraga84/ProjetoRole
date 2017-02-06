@@ -7,6 +7,7 @@ namespace ProjetoRole.Models.Entidades
 {
     public class EntidadePublicas
     {
+        
     }
 
     public class EnidadePaginaIncial
@@ -15,4 +16,12 @@ namespace ProjetoRole.Models.Entidades
         public List<Role> listaPassado { get; set; }
 
     }
+
+    public class EntidadeRole
+    {
+        public Role role { get; set; }
+        
+    }
+
+
 }

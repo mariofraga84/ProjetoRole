@@ -1,0 +1,505 @@
+﻿@model ProjetoRole.Models.Entidades.EntidadeRole
+@{
+    Layout = "~/Views/Shared/_Layout_Landing.cshtml";
+    ViewBag.Title = Model.role.titulo;
+}
+
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">TÔ DE MOTO</a>
+
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a class="page-scroll" href="#page-top">Home</a></li>
+                <li><a class="page-scroll" href="#components">Vai Rolar!</a></li>
+                <li><a class="page-scroll" href="#features">Já Rolou</a></li>
+                <li><a href="/CAUsuarios/Login">Entre</a></li>
+                <li><a href="/CAUsuarios/Create">Registre-se </a></li>
+                <li><a class="page-scroll" href="#contact">Contato</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header id="page-top">
+    <div class="container">
+        <div class="heading">
+            <h1>
+                Bem Vindo ao TÔ DE MOTO .COM.BR
+            </h1>
+            <span>Ajudando você a encontrar e divulgar <br /> os melhores Rolés e Encontros!</span>
+
+
+        </div>
+        <div class="heading-image animate-panel" data-child="img-animate" data-effect="fadeInRight">
+            <img class="img-animate img-thumbnail" src="~/Images/landing/c1.jpg">
+            <img class="img-animate img-thumbnail" src="~/Images/landing/c2.jpg">
+            <img class="img-animate img-thumbnail" src="~/Images/landing/c3.jpg">
+            <img class="img-animate img-thumbnail" src="~/Images/landing/c4.jpg">
+            <br />
+            <img class="img-animate img-thumbnail" src="~/Images/landing/c5.jpg">
+            <img class="img-animate img-thumbnail" src="~/Images/landing/c6.jpg">
+            <img class="img-animate img-thumbnail" src="~/Images/landing/c7.jpg">
+            <img class="img-animate img-thumbnail" src="~/Images/landing/c8.jpg">
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="normalheader transition">
+        <div class="hpanel">
+            <div class="panel-body">
+                <a class="small-header-action" href="">
+                    <div class="clip-header">
+                        <i class="fa fa-arrow-up"></i>
+                    </div>
+                </a>
+
+                <div id="hbreadcrumb" class="pull-right m-t-lg">
+                    <ol class="hbreadcrumb breadcrumb">
+                        <li><a href="/index">Página Incial</a></li>
+                        <li>
+                            <span>Passeios</span>
+                        </li>
+                        <li class="active">
+                            <span>Detalhe de Passeio / Encontro</span>
+                        </li>
+                    </ol>
+                </div>
+                <h2 class="font-light m-b-xs">
+                    @Model.role.titulo
+                </h2>
+                <small>@Model.role.TipoRole.descricao</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="content animate-panel">
+
+        <div class="row">
+
+            <div class="col-md-8">
+
+                <div class="font-bold m-b-sm">
+                    Mais Informações
+                </div>
+
+                <div class="hpanel">
+                    <div class="panel-body">
+
+                        <!--  <h2 class="m-t-none">@string.Format("{0:D}", Convert.ToDateTime(Model.role.dataRole.ToString().ToUpper()))-  @string.Format("{0:HH:mm}", Convert.ToDateTime(Model.role.horaRole.ToString()))</h2> -->
+                        <Medium>
+                            <a href="~/Arquivos/Imagens/Grandes/@Model.role.capa" title="TÔ DE MOTO.COM.BR" data-gallery="">
+                                <img src="~/Arquivos/Imagens/Medias/@Model.role.capa" class="img-thumbnail pull-left" style="margin-right: 15px;" />
+                            </a>
+                            @Html.Raw(Model.role.descricaoRole)
+                        </Medium>
+
+
+                        <div class="Medium m-t-xs">
+                            <strong>Data:</strong> @string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(Model.role.dataRole.ToString())) <br />
+                            <strong>Horário:</strong> @string.Format("{0:HH:mm}", Convert.ToDateTime(Model.role.horaRole.ToString())) <br />
+                            <strong>Cidade:</strong> @Model.role.Localidade.cidade - @Model.role.Localidade.uf <br />
+                            <strong>Ponto de Encontro(Partida):</strong> @Model.role.localPartida<br />
+                            <strong>Destino:</strong> @Model.role.localDestino<br />
+                            <strong>Tipo de Passeio / Evento:</strong> @Model.role.TipoRole.descricao <br />
+                            <strong>Distância a ser Percorrida:</strong> @Model.role.totalKM.ToString() Km (Estimativa)<br />
+
+                            <strong>Criado por:</strong> @Model.role.CAUsuario.apelido <br />
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+                <div class="hpanel">
+
+                    <div class="panel-body">
+
+                        <p>
+                            <strong>These sweet mornings of spring</strong> which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine.
+                        </p>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span class="label label-success">Added</span>
+                                        </td>
+                                        <td class="issue-info">
+                                            <a href="#">
+                                                Message
+                                            </a>
+                                            <br />
+                                            <small>
+                                                This is issue with the coresponding note
+                                            </small>
+                                        </td>
+                                        <td>
+                                            Adrian Novak
+                                        </td>
+                                        <td>
+                                            12.02.2015
+                                        </td>
+                                        <td class="text-right">
+                                            <button class="btn btn-default btn-xs"> Action</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="label label-info">Added</span>
+                                        </td>
+                                        <td class="issue-info">
+                                            <a href="#">
+                                                Call
+                                            </a>
+                                            <br />
+                                            <small>
+                                                Desktop publishing packages and web page editors now use Lorem Ipsum as their default model text
+                                            </small>
+                                        </td>
+                                        <td>
+                                            Anna Smith
+                                        </td>
+                                        <td>
+                                            10.02.2015
+                                        </td>
+                                        <td class="text-right">
+                                            <button class="btn btn-default btn-xs"> Action</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="label label-success">Added</span>
+                                        </td>
+                                        <td class="issue-info">
+                                            <a href="#">
+                                                Message
+                                            </a>
+                                            <br />
+                                            <small>
+                                                It is a long established fact that a reader will be
+                                            </small>
+                                        </td>
+                                        <td>
+                                            Anthony Jackson
+                                        </td>
+                                        <td>
+                                            02.03.2015
+                                        </td>
+                                        <td class="text-right">
+                                            <button class="btn btn-default btn-xs"> Action</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="label label-info">Added</span>
+                                        </td>
+                                        <td class="issue-info">
+                                            <a href="#">
+                                                Message
+                                            </a>
+                                            <br />
+                                            <small>
+                                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered
+                                            </small>
+                                        </td>
+                                        <td>
+                                            Monica Proven
+                                        </td>
+                                        <td>
+                                            01.10.2015
+                                        </td>
+                                        <td class="text-right">
+                                            <button class="btn btn-default btn-xs"> Action</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="label label-info">Fixed</span>
+                                        </td>
+                                        <td class="issue-info">
+                                            <a href="#">
+                                                Meeting
+                                            </a>
+                                            <br />
+                                            <small>
+                                                Always free from repetition, injected humour, or non-characteristic words etc.
+                                            </small>
+                                        </td>
+                                        <td>
+                                            Alex Ferguson
+                                        </td>
+                                        <td>
+                                            28.11.2015
+                                        </td>
+                                        <td class="text-right">
+                                            <button class="btn btn-default btn-xs"> Action</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="label label-success">Fixed</span>
+                                        </td>
+                                        <td class="issue-info">
+                                            <a href="#">
+                                                Message
+                                            </a>
+                                            <br />
+                                            <small>
+                                                Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit am
+                                            </small>
+                                        </td>
+                                        <td>
+                                            Mark Conor
+                                        </td>
+                                        <td>
+                                            18.09.2015
+                                        </td>
+                                        <td class="text-right">
+                                            <button class="btn btn-default btn-xs"> Action</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="label label-success">Fixed</span>
+                                        </td>
+                                        <td class="issue-info">
+                                            <a href="#">
+                                                Call
+                                            </a>
+                                            <br />
+                                            <small>
+                                                Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit am
+                                            </small>
+                                        </td>
+                                        <td>
+                                            Carol Jackson
+                                        </td>
+                                        <td>
+                                            11.03.2015
+                                        </td>
+                                        <td class="text-right">
+                                            <button class="btn btn-default btn-xs"> Action</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="label label-success">Fixed</span>
+                                        </td>
+                                        <td class="issue-info">
+                                            <a href="#">
+                                                Message
+                                            </a>
+                                            <br />
+                                            <small>
+                                                Content here, content here', making it look like readable English. Many desktop
+                                            </small>
+                                        </td>
+                                        <td>
+                                            Carol Jackson
+                                        </td>
+                                        <td>
+                                            05.04.2015
+                                        </td>
+                                        <td class="text-right">
+                                            <button class="btn btn-default btn-xs"> Action</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="label label-info">Fixed</span>
+                                        </td>
+                                        <td class="issue-info">
+                                            <a href="#">
+                                                Meeting
+                                            </a>
+                                            <br />
+                                            <small>
+                                                Virginia, looked up one of the more obscure Latin words, consectetur
+                                            </small>
+                                        </td>
+                                        <td>
+                                            Monica Smith
+                                        </td>
+                                        <td>
+                                            10.06.2014
+                                        </td>
+                                        <td class="text-right">
+                                            <button class="btn btn-default btn-xs"> Action</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="label label-success">Fixed</span>
+                                        </td>
+                                        <td class="issue-info">
+                                            <a href="#">
+                                                Meeting
+                                            </a>
+                                            <br />
+                                            <small>
+                                                Injected humour, or randomised words which don't l
+                                            </small>
+                                        </td>
+                                        <td>
+                                            Anna Johnson
+                                        </td>
+                                        <td>
+                                            13.05.2014
+                                        </td>
+                                        <td class="text-right">
+                                            <button class="btn btn-default btn-xs"> Action</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+
+
+
+                <div class="font-bold m-b-sm">
+                   Alguns dos Participantes Confirmados
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a1.jpg">
+                                <div class="m-t-sm">
+                                    <strong>Mark Newon</strong>
+                                    <p class="small">UI Designer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a2.jpg">
+                                <div class="m-t-sm">
+                                    <strong>Anna Smith</strong>
+                                    <p class="small">JS Developer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a3.jpg">
+                                <div class="m-t-sm">
+                                    <strong>John Smith</strong>
+                                    <p class="small">CEO X company</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a1.jpg">
+                                <div class="m-t-sm">
+                                    <strong>Max Simson</strong>
+                                    <p class="small">UI Designer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a4.jpg">
+                                <div class="m-t-sm">
+                                    <strong>Anna Novak</strong>
+                                    <p class="small">UX Designer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a5.jpg">
+                                <div class="m-t-sm">
+                                    <strong>Michael Smith</strong>
+                                    <p class="small">JAVA Developer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a6.jpg">
+                                <div class="m-t-sm">
+                                    <strong>Max Simson</strong>
+                                    <p class="small">UI Designer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a7.jpg">
+                                <div class="m-t-sm">
+                                    <strong>John Smith</strong>
+                                    <p class="small">CEO X company</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+
+<!-- Local style for demo purpose -->
+<style>
+    .lightBoxGallery {
+        text-align: center;
+    }
+
+        .lightBoxGallery a {
+            margin: 5px;
+            display: inline-block;
+        }
+</style>
+
+@section Styles {
+    @Styles.Render("~/bundles/blueimp/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/blueimp/js")
+}

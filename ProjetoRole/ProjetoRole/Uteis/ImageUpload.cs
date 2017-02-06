@@ -44,6 +44,7 @@ namespace ProjetoRole.Uteis
             var path = Path.Combine(HttpContext.Current.Request.MapPath(UploadPath+"Grandes/"), fileName);
             var path2 = Path.Combine(HttpContext.Current.Request.MapPath(UploadPath+"Medias/"), fileName);
             var path3 = Path.Combine(HttpContext.Current.Request.MapPath(UploadPath+"Pequenas/"), fileName);
+            var path4 = Path.Combine(HttpContext.Current.Request.MapPath(UploadPath + "Minis/"), fileName);
             string extension = Path.GetExtension(file.FileName);
 
             //make sure the file is valid
@@ -60,7 +61,7 @@ namespace ProjetoRole.Uteis
                 Image imgOriginal = Image.FromFile(path);
 
                 //pass in whatever value you want
-                Width = 560;
+                Width = 800;
                 Image imgActual = Scale(imgOriginal);
                 imgOriginal.Dispose();
                 imgActual.Save(path);
@@ -71,7 +72,7 @@ namespace ProjetoRole.Uteis
                 Image imgOriginal2 = Image.FromFile(path2);
 
                 //pass in whatever value you want
-                Width = 280;
+                Width = 560;
                 Image imgActual2 = Scale(imgOriginal2);
                 imgOriginal2.Dispose();
                 imgActual2.Save(path2);
@@ -81,11 +82,21 @@ namespace ProjetoRole.Uteis
                 Image imgOriginal3 = Image.FromFile(path3);
 
                 //pass in whatever value you want
-                Width = 140; 
+                Width = 280; 
                 Image imgActual3 = Scale(imgOriginal3);
                 imgOriginal3.Dispose();
                 imgActual3.Save(path3);
                 imgActual3.Dispose();
+
+                file.SaveAs(path4);
+                Image imgOriginal4 = Image.FromFile(path4);
+
+                //pass in whatever value you want
+                Width = 140;
+                Image imgActual4 = Scale(imgOriginal4);
+                imgOriginal4.Dispose();
+                imgActual4.Save(path3);
+                imgActual4.Dispose();
 
 
                 imageResult.ImageName = fileName;

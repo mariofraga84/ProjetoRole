@@ -225,6 +225,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="banco\05-02-2017.sql" />
+    <Content Include="banco\06-02-2017.sql" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\img\green%402x.png" />
@@ -2848,11 +2849,13 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Shared\_Right_Sidebar.cshtml" />
+    <Content Include="Views\Home\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Arquivos\Imagens\Grandes\" />
     <Folder Include="Arquivos\Imagens\Medias\" />
+    <Folder Include="Arquivos\Imagens\Minis\" />
     <Folder Include="Arquivos\Imagens\Pequenas\" />
     <Folder Include="Vendor\moment\src\lib\create\" />
     <Folder Include="Vendor\moment\src\lib\duration\" />
