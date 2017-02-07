@@ -20,7 +20,10 @@ namespace ProjetoRole.Models.Entidades
     public class EntidadeRole
     {
         public Role role { get; set; }
-        
+        public string msgErro { get; set; }
+
+
+
     }
 
 

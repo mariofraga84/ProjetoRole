@@ -2,6 +2,8 @@
     ViewBag.Title = "Alerts";
 }
 
+<p>Click on this paragraph.</p>
+
 <div class="normalheader transition animated fadeIn">
     <div class="hpanel">
         <div class="panel-body">
@@ -171,8 +173,12 @@ toastr.options = {
 
     <script type="text/javascript">
 
-        $(function () {
+        $(window).load(function () {
+            swal("Atenção", "You clicked the button!", "warning");
+        });
 
+        $(function () {
+            
             $('.demo1').click(function () {
                 swal({
                     title: "Welcome in Alerts",
@@ -193,9 +199,8 @@ toastr.options = {
                     title: "Are you sure?",
                     text: "Your will not be able to recover this imaginary file!",
                     type: "warning",
-                    showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes, delete it!"
+                    confirmButtonText: "Ok!"
                 },
                         function () {
                             swal("Booyah!");

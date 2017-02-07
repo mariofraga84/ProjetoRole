@@ -447,6 +447,11 @@ body.blank {
 .big-icon {
   font-size: 120px;
 }
+
+.icon-50 {
+    font-size: 50px;
+}
+
 .error-container h1 {
   font-size: 44px;
 }

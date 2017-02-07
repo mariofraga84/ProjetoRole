@@ -24,20 +24,27 @@ namespace ProjetoRole.Controllers
             return View(await role.ToListAsync());
         }
 
+
+
         // GET: Roles/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Details(int? id, string msgErro)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            EntidadeRole entRole = new EntidadeRole();
             Role role = await db.Role.FindAsync(id);
+            entRole.role = role;
+            entRole.msgErro = msgErro;
             if (role == null)
             {
                 return HttpNotFound();
             }
-            return View(role);
+            return View(entRole);
         }
+
+
 
         // GET: Roles/Create
         public ActionResult Create()
@@ -327,5 +334,90 @@ namespace ProjetoRole.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        // GET: Roles/Details/5
+        public async Task<ActionResult> Participar(int? id, int? fkMoto)
+        {
+            try
+            {
+                
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Session.Add("pkRole", id);
+            CAUsuario usuario;
+            if (Session["usuario"] == null)
+            {
+                return RedirectToAction("Login", "CAUsuarios", new { urlRetorno = Request.Url.AbsolutePath });
+            }
+            
+                usuario = (CAUsuario)Session["usuario"];
+            
+
+            if(db.Participamente.Where(o=>o.fkRole == id && o.fkUsuario == usuario.pkUsuario).Any())
+            {
+                Participamente participanteValidacao = db.Participamente.Where(o => o.fkRole == id && o.fkUsuario == usuario.pkUsuario).Last();
+                if (participanteValidacao.autorizado == null)
+                {
+                    return RedirectToAction("ErroInterno", "Home", new { msgErro = "Solicitação para participar do Passeio/Evento já enviada e aguardando aprovação." });
+                }
+                else
+                {
+                    if (participanteValidacao.autorizado == true)
+                    {
+                        return RedirectToAction("ErroInterno", "Home", new { msgErro = "Sua participação já esta autorizada neste evento!" });
+                    } else
+                    {
+                        // cadastrar nova solicitação para participar.
+                    }
+                }
+
+                // redirencionar avisando que já esta inscrito no rolé.
+            }
+
+                Participamente novoParticipante = new Participamente();
+
+                novoParticipante.fkRole = id;
+                novoParticipante.fkUsuario = usuario.pkUsuario;
+
+                if (fkMoto == null)
+                {
+                    int totalmotos = usuario.Moto.Where(o => o.ativa == true).ToList().Count;
+
+                    if (totalmotos == 0)
+                    {
+                        return RedirectToAction("ErroInterno", "Home", new { msgErro = "Você precisa ter pelo menos uma Moto cadastrada! <br> clique aqui para cadastrar!" });
+                    }
+
+                    if (totalmotos > 1)
+                    {
+                        return RedirectToAction("ErroInterno", "Home", new { msgErro = "Você precisa ter pelo menos uma Moto cadastrada! <br> clique aqui para cadastrar!" });
+                    }
+                    if (totalmotos == 1)
+                    {
+                        novoParticipante.fkMoto = usuario.Moto.First().pkMoto;
+                    }
+
+                } else
+                {
+                    novoParticipante.fkMoto = fkMoto;
+                }
+
+            db.Participamente.Add(novoParticipante);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+
+            }
+            catch (Exception er)
+            {
+
+                throw;
+            }
+            return View();
+        }
+
     }
 }

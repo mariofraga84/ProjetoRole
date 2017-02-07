@@ -48,9 +48,10 @@ namespace ProjetoRole.Controllers
         }
 
         // GET: Motoes/Create
-        public ActionResult Create()
+        public ActionResult Create(int? fkRole)
         {
             ViewBag.fkMarca = new SelectList(db.Marca, "pkMarca", "DescricaoMarca");
+            ViewBag.fkRole = fkRole.ToString();
             return View();
         }
 
@@ -59,7 +60,7 @@ namespace ProjetoRole.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Moto moto, HttpPostedFileBase FotoMoto)
+        public async Task<ActionResult> Create(Moto moto, HttpPostedFileBase FotoMoto, String fkRole)
         {
             moto.fkUsuario = 1;
 
@@ -83,6 +84,12 @@ namespace ProjetoRole.Controllers
 
                 db.Moto.Add(moto);
                 await db.SaveChangesAsync();
+
+                if (fkRole != null)
+                {
+                    return RedirectToAction("View", "Roles", new { id = fkRole });
+                }
+
                 return RedirectToAction("Index");
             }
 
@@ -227,5 +234,20 @@ namespace ProjetoRole.Controllers
             }
             base.Dispose(disposing);
         }
+
+        // GET: Motoes
+        public List<Moto> ListaMotosUsuario(int pkUsuario)
+        {
+            try
+            {
+                List<Moto> motos = db.Moto.Where(o => o.fkUsuario == pkUsuario && o.ativa == true).ToList();
+                return motos;
+            }
+            catch (Exception)
+            {
+                return new List<Moto>();
+            }            
+        }
+
     }
 }

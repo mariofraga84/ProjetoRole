@@ -21,6 +21,8 @@ namespace ProjetoRole.Models
 
         public bool? participou { get; set; }
 
+        public bool? autorizado { get; set; }
+
         public virtual CAUsuario CAUsuario { get; set; }
 
         public virtual Moto Moto { get; set; }

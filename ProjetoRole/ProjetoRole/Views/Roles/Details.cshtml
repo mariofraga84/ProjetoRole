@@ -1,106 +1,292 @@
-﻿@model ProjetoRole.Models.Role
-
+﻿@model ProjetoRole.Models.Entidades.EntidadeRole
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.role.titulo;
 }
 
-<h2>Details</h2>
+    <div class="normalheader transition">
+        <div class="hpanel">
+            <div class="panel-body">
+                <a class="small-header-action" href="">
+                    <div class="clip-header">
+                        <i class="fa fa-arrow-up"></i>
+                    </div>
+                </a>
 
-<div>
-    <h4>Role</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CAUsuario.nome)
-        </dt>
+                <div id="hbreadcrumb" class="pull-right m-t-lg">
+                    <ol class="hbreadcrumb breadcrumb">
+                        <li><a href="/index">Página Incial</a></li>
+                        <li>
+                            <span>Passeios</span>
+                        </li>
+                        <li class="active">
+                            <span>Detalhe de Passeio / Encontro</span>
+                        </li>
+                    </ol>
+                </div>
+                <h2 class="font-light m-b-xs">
+                    @Model.role.titulo
+                </h2>
+                <small>@Model.role.TipoRole.descricao</small>
+            </div>
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CAUsuario.nome)
-        </dd>
+    <div class="content animate-panel">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TipoRole.descricao)
-        </dt>
+        <div class="row">
 
-        <dd>
-            @Html.DisplayFor(model => model.TipoRole.descricao)
-        </dd>
+            <div class="col-md-8">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.dataHoraCadastro)
-        </dt>
+                <div class="font-bold m-b-sm">
+                    Mais Informações
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.dataHoraCadastro)
-        </dd>
+                <div class="hpanel">
+                    <div class="panel-body">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.titulo)
-        </dt>
+                        <!--  <h2 class="m-t-none">@string.Format("{0:D}", Convert.ToDateTime(Model.role.dataRole.ToString().ToUpper()))-  @string.Format("{0:HH:mm}", Convert.ToDateTime(Model.role.horaRole.ToString()))</h2> -->
+                        <Medium>
+                            <a href="~/Arquivos/Imagens/Grandes/@Model.role.capa" title="TÔ DE MOTO.COM.BR" data-gallery="">
+                                <img src="~/Arquivos/Imagens/Medias/@Model.role.capa" class="img-thumbnail pull-left" style="margin-right: 15px;" />
+                            </a>
+                            @Html.Raw(Model.role.descricaoRole)
+                        </Medium>
 
-        <dd>
-            @Html.DisplayFor(model => model.titulo)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.descricaoRole)
-        </dt>
+                        <div class="Medium m-t-xs">
+                            <strong>Data:</strong> @string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(Model.role.dataRole.ToString())) <br />
+                            <strong>Horário:</strong> @string.Format("{0:HH:mm}", Convert.ToDateTime(Model.role.horaRole.ToString())) <br />
+                            <strong>Cidade:</strong> @Model.role.Localidade.cidade - @Model.role.Localidade.uf <br />
+                            <strong>Ponto de Encontro(Partida):</strong> @Model.role.localPartida<br />
+                            <strong>Destino:</strong> @Model.role.localDestino<br />
+                            <strong>Tipo de Passeio / Evento:</strong> @Model.role.TipoRole.descricao <br />
+                            <strong>Distância a ser Percorrida:</strong> @Model.role.totalKM.ToString() Km (Estimativa)<br />
 
-        <dd>
-            @Html.DisplayFor(model => model.descricaoRole)
-        </dd>
+                            <strong>Criado por:</strong> @Model.role.CAUsuario.apelido <br />
+                        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.capa)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.capa)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.totalKM)
-        </dt>
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.totalKM)
-        </dd>
+                <div class="hpanel">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.localPartida)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.localPartida)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.localDestino)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.localDestino)
-        </dd>
+                    <div class="panel-body">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.dataRole)
-        </dt>
+                        <p>
+                            <strong>Comentários</strong>
+                        </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.dataRole)
-        </dd>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered table-striped">
+                                <tbody>
+                                    <!--
+                                    <tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.horaRole)
-        </dt>
+                                        <td class="issue-info">
+                                            <a href="#">
+                                                Message
+                                            </a>
+                                            <br />
+                                            <small>
+                                                This is issue with the coresponding note
+                                            </small>
+                                        </td>
+                                        <td>
+                                            Adrian Novak
+                                        </td>
+                                        <td>
+                                            12.02.2015
+                                        </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.horaRole)
-        </dd>
+                                    </tr>
 
-    </dl>
+                                    <tr>
+
+                                        <td class="issue-info">
+                                            <a href="#">
+                                                Meeting
+                                            </a>
+                                            <br />
+                                            <small>
+                                                Injected humour, or randomised words which don't l
+                                            </small>
+                                        </td>
+                                        <td>
+                                            Anna Johnson
+                                        </td>
+                                        <td>
+                                            13.05.2014
+                                        </td>
+
+                                    </tr>
+                                        -->
+                                    Nenhum comentário  até o momento.
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="col-md-4">
+                @{  ProjetoRole.Models.CAUsuario usuario = (ProjetoRole.Models.CAUsuario)Session["usuario"];
+                    List<ProjetoRole.Models.Moto> motos = new ProjetoRole.Controllers.MotoesController().ListaMotosUsuario(usuario.pkUsuario);
+                }
+
+                @if (motos.Count == 0)
+                {
+                    <a href="/Motoes/Create?fkRole=@Model.role.pkRole"> <button class="btn btn-warning2" style="width:100%;" type="button"><i class="fa fa-plus icon-50"></i> <i class="fa fa-motorcycle icon-50"></i> <br /> <strong> Cadastre Pelo Menos uma Moto <br /> para Poder se Inscrever no Evento </strong> <br /></button></a>
+                }
+                else
+                {
+                <a href="/Role/Participar?id=@Model.role.pkRole"> <button class="btn btn-info" style="width:100%;" type="button"><i class="fa fa-plus icon-50"></i><br /> QUERO PARTICIPAR! <br /></button></a>
+                }
+                <br />
+                <br />
+                <div class="font-bold m-b-sm">
+                   Alguns dos Participantes Confirmados
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a1.jpg">
+                                <div class="m-t-sm">
+                                    <strong>Mark Newon</strong>
+                                    <p class="small">UI Designer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a2.jpg">
+                                <div class="m-t-sm">
+                                    <strong>Anna Smith</strong>
+                                    <p class="small">JS Developer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a3.jpg">
+                                <div class="m-t-sm">
+                                    <strong>John Smith</strong>
+                                    <p class="small">CEO X company</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a1.jpg">
+                                <div class="m-t-sm">
+                                    <strong>Max Simson</strong>
+                                    <p class="small">UI Designer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a4.jpg">
+                                <div class="m-t-sm">
+                                    <strong>Anna Novak</strong>
+                                    <p class="small">UX Designer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a5.jpg">
+                                <div class="m-t-sm">
+                                    <strong>Michael Smith</strong>
+                                    <p class="small">JAVA Developer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a6.jpg">
+                                <div class="m-t-sm">
+                                    <strong>Max Simson</strong>
+                                    <p class="small">UI Designer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Images/a7.jpg">
+                                <div class="m-t-sm">
+                                    <strong>John Smith</strong>
+                                    <p class="small">CEO X company</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.pkRole }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<!-- Local style for demo purpose -->
+<style>
+    .lightBoxGallery {
+        text-align: center;
+    }
+
+        .lightBoxGallery a {
+            margin: 5px;
+            display: inline-block;
+        }
+</style>
+
+@section Styles {
+    @Styles.Render("~/bundles/blueimp/css")
+    @Styles.Render("~/bundles/sweetAlert/css")
+    @Styles.Render("~/bundles/toastr/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/blueimp/js")
+    @Scripts.Render("~/bundles/sweetAlert/js")
+    @Scripts.Render("~/bundles/toastr/js")
+    <script type="text/javascript">
+        $(window).load(function () {
+            swal("Atenção", "You clicked the button!", "warning");
+        });
+    </script>
+}
