@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using ProjetoRole.Models;
 using ProjetoRole.Uteis;
+using ProjetoRole.Models.Entidades;
 
 namespace ProjetoRole.Controllers
 {
@@ -248,6 +249,23 @@ namespace ProjetoRole.Controllers
                 return new List<Moto>();
             }            
         }
+
+
+        public List<EntidadeMoto> carregaEntidadeMoto(List<Moto> motos)
+        {
+            List<EntidadeMoto> listaRetorno = new List<EntidadeMoto>();
+            EntidadeMoto moto;
+            foreach (var item in motos)
+            {
+                moto = new EntidadeMoto();
+                moto.pkMoto = item.pkMoto;
+                moto.foto = item.foto;
+                moto.descricao = item.nomeMoto + " - " + item.Marca.DescricaoMarca + " - " + item.modeloMoto;
+                listaRetorno.Add(moto);
+            }
+            return listaRetorno;
+        }
+
 
     }
 }

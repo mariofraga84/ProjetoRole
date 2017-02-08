@@ -10,8 +10,7 @@ namespace ProjetoRole.Models
     public partial class Participamente
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int pkParticipamento { get; set; }
+        public int pkParticipacao { get; set; }
 
         public int? fkUsuario { get; set; }
 

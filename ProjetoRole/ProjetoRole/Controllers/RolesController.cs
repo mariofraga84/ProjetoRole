@@ -33,14 +33,38 @@ namespace ProjetoRole.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            CAUsuario usuario;
+            if (Session["usuario"] == null)
+            {
+                return RedirectToAction("Login", "CAUsuarios", new { urlRetorno = Request.Url.AbsolutePath });
+            }
+            else
+            {
+                usuario = (CAUsuario)Session["usuario"];
+            }
+
             EntidadeRole entRole = new EntidadeRole();
             Role role = await db.Role.FindAsync(id);
             entRole.role = role;
-            entRole.msgErro = msgErro;
+            if (msgErro != null)
+            {
+                entRole.erro = new EntidadeErro();
+                entRole.erro.msgErro = funcoesUteis.acentosJavaScript(msgErro);
+                entRole.erro.msgTitulo = "Atenção";
+                entRole.erro.msgTipo = "warning";
+                entRole.erro.erro = true;
+            }
             if (role == null)
             {
                 return HttpNotFound();
             }
+
+            MotoesController cMoto = new MotoesController();
+            List<EntidadeMoto> listaMotos = cMoto.carregaEntidadeMoto(db.Moto.Where(o => o.fkUsuario == usuario.pkUsuario && o.ativa == true).ToList());
+
+            ViewBag.pkMoto = new SelectList(listaMotos, "pkMoto", "descricao");
+
             return View(entRole);
         }
 
@@ -337,7 +361,7 @@ namespace ProjetoRole.Controllers
 
 
         // GET: Roles/Details/5
-        public async Task<ActionResult> Participar(int? id, int? fkMoto)
+        public async Task<ActionResult> Participar(int? id, int? pkMoto)
         {
             try
             {
@@ -359,19 +383,19 @@ namespace ProjetoRole.Controllers
 
             if(db.Participamente.Where(o=>o.fkRole == id && o.fkUsuario == usuario.pkUsuario).Any())
             {
-                Participamente participanteValidacao = db.Participamente.Where(o => o.fkRole == id && o.fkUsuario == usuario.pkUsuario).Last();
+                Participamente participanteValidacao = db.Participamente.Where(o => o.fkRole == id && o.fkUsuario == usuario.pkUsuario).First();
                 if (participanteValidacao.autorizado == null)
                 {
-                    return RedirectToAction("ErroInterno", "Home", new { msgErro = "Solicitação para participar do Passeio/Evento já enviada e aguardando aprovação." });
+                    return RedirectToAction("Details", "Roles", new { id = id, msgErro = "Solicitação para participar do Passeio/Evento já enviada e aguardando aprovação." });
                 }
                 else
                 {
                     if (participanteValidacao.autorizado == true)
                     {
-                        return RedirectToAction("ErroInterno", "Home", new { msgErro = "Sua participação já esta autorizada neste evento!" });
+                        return RedirectToAction("Details", "Roles", new { id = id, msgErro = "Sua participação já esta autorizada neste evento!" });
                     } else
                     {
-                        // cadastrar nova solicitação para participar.
+                        return RedirectToAction("Details", "Roles", new { id = id, msgErro = "Sua participação já foi solicitada! Agora esta aguardando participação!" });
                     }
                 }
 
@@ -382,19 +406,20 @@ namespace ProjetoRole.Controllers
 
                 novoParticipante.fkRole = id;
                 novoParticipante.fkUsuario = usuario.pkUsuario;
+                novoParticipante.autorizado = true; // depois isso deve ser alterado de acordo com as configuracoes do role. publico ou privado.
 
-                if (fkMoto == null)
+                if (pkMoto == null)
                 {
                     int totalmotos = usuario.Moto.Where(o => o.ativa == true).ToList().Count;
 
                     if (totalmotos == 0)
                     {
-                        return RedirectToAction("ErroInterno", "Home", new { msgErro = "Você precisa ter pelo menos uma Moto cadastrada! <br> clique aqui para cadastrar!" });
+                        return RedirectToAction("Details", "Roles", new { id = id, msgErro = "Você precisa ter pelo menos uma Moto cadastrada! <br> clique aqui para cadastrar!" });
                     }
 
                     if (totalmotos > 1)
                     {
-                        return RedirectToAction("ErroInterno", "Home", new { msgErro = "Você precisa ter pelo menos uma Moto cadastrada! <br> clique aqui para cadastrar!" });
+                        return RedirectToAction("Details", "Roles", new { id = id, msgErro = "Você precisa ter pelo menos uma Moto cadastrada! <br> clique aqui para cadastrar!" });
                     }
                     if (totalmotos == 1)
                     {
@@ -403,17 +428,17 @@ namespace ProjetoRole.Controllers
 
                 } else
                 {
-                    novoParticipante.fkMoto = fkMoto;
+                    novoParticipante.fkMoto = pkMoto;
                 }
 
             db.Participamente.Add(novoParticipante);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Roles", new { id=id, msgErro = "Participação no Passeio/Evento Cadastrada com Sucesso!" });
 
             }
             catch (Exception er)
             {
-
+                return RedirectToAction("Details", "Roles", new { id = id, msgErro = er.Message.ToString() });
                 throw;
             }
             return View();
