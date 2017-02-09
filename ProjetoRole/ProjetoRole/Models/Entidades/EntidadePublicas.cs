@@ -23,7 +23,7 @@ namespace ProjetoRole.Models.Entidades
         public EntidadeErro erro { get; set; }
         public bool inscritoRole { get; set; }
         public String descricaoMotoInscrita { get; set; }
-
+        public List<Participamente> participantes { get; set; }
     }
 
     public class EntidadeErro

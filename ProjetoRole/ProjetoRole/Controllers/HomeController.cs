@@ -35,7 +35,7 @@ namespace ProjetoRole.Controllers
         }
 
 
-        public async Task<ActionResult> View(int id)
+        public async Task<ActionResult> View(int? id)
         {
             EntidadeRole entRole = new EntidadeRole();
 
@@ -44,9 +44,12 @@ namespace ProjetoRole.Controllers
             Role role = db.Role.Where(o => o.ativo == true && o.pkRole == id).First();
             entRole.role = role;
 
-        
 
-            return View(entRole);
+             List<Participamente> listaParticipantes = db.Participamente.Where(o => o.fkRole == id && o.autorizado == true).ToList();
+
+             entRole.participantes = listaParticipantes;
+
+                return View(entRole);
             }
             catch (Exception)
             {

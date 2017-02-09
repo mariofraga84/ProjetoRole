@@ -31,7 +31,7 @@ namespace ProjetoRole.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("IndexInterno", "Home");
             }
 
             CAUsuario usuario;
@@ -78,7 +78,9 @@ namespace ProjetoRole.Controllers
                 entRole.inscritoRole = false;
             }
 
+            List<Participamente> listaParticipantes = db.Participamente.Where(o => o.fkRole == id && o.autorizado == true).ToList();
 
+            entRole.participantes = listaParticipantes;
 
             return View(entRole);
         }

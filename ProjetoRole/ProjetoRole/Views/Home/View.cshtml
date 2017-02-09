@@ -192,102 +192,31 @@
             </div>
             <div class="col-md-4">
 
-                <a href="/Role/Participar?id=@Model.role.pkRole"> <button class="btn btn-info" style="width:100%;" type="button"><i class="fa fa-plus"></i><br /> QUERO PARTICIPAR! <br /></button></a>
+                <a href="/Roles/Details?id=@Model.role.pkRole"> <button class="btn btn-info" style="width:100%;" type="button"><i class="fa fa-plus"></i><br /> QUERO PARTICIPAR! <br /></button></a>
                 <br />
                 <br />
                 <div class="font-bold m-b-sm">
                    Alguns dos Participantes Confirmados
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6">
-
-                        <div class="hpanel">
-                            <div class="panel-body text-center">
-                                <img alt="logo" class="img-circle img-small" src="~/Images/a1.jpg">
-                                <div class="m-t-sm">
-                                    <strong>Mark Newon</strong>
-                                    <p class="small">UI Designer</p>
+               
+                    <div class="row">
+                        @foreach (var item in Model.participantes)
+                        {
+                            <div class="col-md-6">
+                                <div class="hpanel">
+                                    <div class="panel-body text-center">
+                                        <img alt="logo" class="img-circle img-small" src="~/Arquivos/Imagens/Pequenas/@item.CAUsuario.foto">
+                                        <div class="m-t-sm">
+                                            <strong>@item.CAUsuario.apelido</strong>
+                                            <p class="small">@item.Moto.nomeMoto - @item.Moto.modeloMoto</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="hpanel">
-                            <div class="panel-body text-center">
-                                <img alt="logo" class="img-circle img-small" src="~/Images/a2.jpg">
-                                <div class="m-t-sm">
-                                    <strong>Anna Smith</strong>
-                                    <p class="small">JS Developer</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="hpanel">
-                            <div class="panel-body text-center">
-                                <img alt="logo" class="img-circle img-small" src="~/Images/a3.jpg">
-                                <div class="m-t-sm">
-                                    <strong>John Smith</strong>
-                                    <p class="small">CEO X company</p>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="hpanel">
-                            <div class="panel-body text-center">
-                                <img alt="logo" class="img-circle img-small" src="~/Images/a1.jpg">
-                                <div class="m-t-sm">
-                                    <strong>Max Simson</strong>
-                                    <p class="small">UI Designer</p>
-                                </div>
-                            </div>
-                        </div>
-
+                        }
                     </div>
-                    <div class="col-md-6">
-
-                        <div class="hpanel">
-                            <div class="panel-body text-center">
-                                <img alt="logo" class="img-circle img-small" src="~/Images/a4.jpg">
-                                <div class="m-t-sm">
-                                    <strong>Anna Novak</strong>
-                                    <p class="small">UX Designer</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="hpanel">
-                            <div class="panel-body text-center">
-                                <img alt="logo" class="img-circle img-small" src="~/Images/a5.jpg">
-                                <div class="m-t-sm">
-                                    <strong>Michael Smith</strong>
-                                    <p class="small">JAVA Developer</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="hpanel">
-                            <div class="panel-body text-center">
-                                <img alt="logo" class="img-circle img-small" src="~/Images/a6.jpg">
-                                <div class="m-t-sm">
-                                    <strong>Max Simson</strong>
-                                    <p class="small">UI Designer</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="hpanel">
-                            <div class="panel-body text-center">
-                                <img alt="logo" class="img-circle img-small" src="~/Images/a7.jpg">
-                                <div class="m-t-sm">
-                                    <strong>John Smith</strong>
-                                    <p class="small">CEO X company</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+               
             </div>
         </div>
     </div>

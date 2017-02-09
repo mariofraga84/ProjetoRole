@@ -3,10 +3,12 @@
 Situações:
 Usuário Sem Moto? OK
 		manda pra pagina de cadastro de moto de depois retorna pra pagina do evento.
-
 Usuário com uma moto? OK
+Usuário Inscrito pode Cancelar Inscrição no Evento. OK
+Correção no alert! OK
 
-Usuário Inscrito pode Cancelar Inscrição no Evento
+CORREÇÃO NA LISTAGEM DE PARTICIPANTES.
+
 	
 
 
