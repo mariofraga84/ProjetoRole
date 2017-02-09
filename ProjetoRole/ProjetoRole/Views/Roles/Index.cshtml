@@ -4,14 +4,6 @@
     ViewBag.Title = "Meus Passeios / Eventos Cadastrados";
 }
 
-<script>
-    $(document).ready(function () {
-        $("p").click(function () {
-            alert("The paragraph was clicked.");
-        });
-    });
-</script>
-<p>Click on this paragraph.</p>
 <div class="small-header transition animated fadeIn">
     <div class="hpanel">
         <div class="panel-body">
@@ -27,10 +19,6 @@
         </div>
     </div>
 </div>
-
-
-
-
 
 <div class="content animate-panel">
     <div class="row">
@@ -104,8 +92,8 @@
                                                 @string.Format("{0:HH:mm}", Convert.ToDateTime(Html.DisplayFor(modelItem => item.horaRole).ToString()))
                                             </td>
                                             <td>
-                                                @Html.ActionLink(" Editar", "Edit", new { id = item.pkRole }, new { @class = "fa fa-edit big" })
-                                                @Html.ActionLink(" Detatlhes", "Details", new { id = item.pkRole }, new { @class = "fa fa-edit big" })
+                                                @Html.ActionLink(" Editar", "Edit", new { id = item.pkRole }, new { @class = "fa fa-edit big" }) - 
+                                                @Html.ActionLink(" Detatlhes", "Details", new { id = item.pkRole }, new { @class = "fa fa-search big" })
                                             </td>
                                         </tr>
                                     }
@@ -214,6 +202,12 @@
                 </div>
             }
 
+
+            @if (Model.ToList().Count == 0)
+            {
+
+                <strong class="text-center" style="font-size:25px;">  VOCÊ AINDA NÃO CADASTROU NENHUM PASSEIO OU EVENTO! </strong>
+            }
 
         </div>
     </div>

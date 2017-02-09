@@ -1,0 +1,40 @@
+﻿SELECT DISTINCT
+ sql = 'ALTER TABLE [' + tc2.TABLE_NAME + '] DROP [' + rc1.CONSTRAINT_NAME + ']'
+FROM
+ INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc1 LEFT JOIN
+  INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc2 
+   ON tc2.CONSTRAINT_NAME = rc1.CONSTRAINT_NAME
+DECLARE @Sql NVARCHAR(500) 
+DECLARE @Cursor CURSOR
+ 
+--cria um cursor para varrer o resultset
+SET @Cursor = CURSOR FAST_FORWARD FOR
+ SELECT DISTINCT
+  sql = 'ALTER TABLE [' + tc2.TABLE_NAME + '] DROP [' + rc1.CONSTRAINT_NAME + ']'
+ FROM 
+  INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc1 LEFT JOIN 
+   INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc2 
+    ON tc2.CONSTRAINT_NAME = rc1.CONSTRAINT_NAME
+--atribui, a cada iteração do cursor, o valor do campo SQL na variável varchar @SQL
+OPEN @Cursor FETCH NEXT FROM @Cursor INTO @Sql
+ 
+WHILE (@@FETCH_STATUS = 0)
+ 
+BEGIN
+ 
+ --executa a string @SQL
+ Exec SP_EXECUTESQL @Sql
+ --Avança para o próximo cursor
+ FETCH NEXT FROM @Cursor INTO @Sql
+ 
+END
+ 
+--fecha e desaloca o cursor
+CLOSE @Cursor DEALLOCATE @Cursor
+ 
+GO
+ 
+--agora sim consegue executar sp_MSForEachtable e apagar todas as tabelas
+EXEC sp_MSForEachtable 'DROP TABLE ?'
+ 
+GO

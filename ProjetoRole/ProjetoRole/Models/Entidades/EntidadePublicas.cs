@@ -24,6 +24,8 @@ namespace ProjetoRole.Models.Entidades
         public bool inscritoRole { get; set; }
         public String descricaoMotoInscrita { get; set; }
         public List<Participamente> participantes { get; set; }
+        public List<Comentario> comentarios { get; set; }
+        public bool eAdm { get; set; }
     }
 
     public class EntidadeErro

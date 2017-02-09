@@ -156,9 +156,9 @@ namespace ProjetoRole.Models
                 .HasForeignKey(e => e.fkUsuario)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Comentario>()
-                .Property(e => e.comentario1)
-                .IsUnicode(false);
+         /*   modelBuilder.Entity<Comentario>()
+                .Property(e => e.textoComentario)
+                .IsUnicode(false); */
 
             modelBuilder.Entity<Comentario>()
                 .HasMany(e => e.Comentario11)

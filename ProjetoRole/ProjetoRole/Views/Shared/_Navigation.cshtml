@@ -43,17 +43,27 @@
         <li class="@Html.IsSelected(controller: "Roles")">
             <a href="#"><span class="nav-label">Rolés / Eventos</span><span class="fa arrow"></span> </a>
             <ul class="nav nav-second-level">
-                <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Inder", "Roles")">Listar</a></li>
-                <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "Roles")">Cadastrar Novos</a></li>
-                <li class="@Html.IsSelected(action: "MeusRoles")"><a href="@Url.Action("MeusRoles", "Roles")">Meus Rolés</a></li>
+                <li class="@Html.IsSelected(action: "Futuros")"><a href="@Url.Action("Futuros", "Roles")">Que Vão Acontecer</a></li>
                 <li class="@Html.IsSelected(action: "Passados")"><a href="@Url.Action("Passados", "Roles")">Que Já Aconteceram</a></li>
+
+                <li class="@Html.IsSelected(action: "MeusRoles")"><a href="@Url.Action("MeusRoles", "Roles")">Que vou participar</a></li>
+
             </ul>
         </li>
-        <li class="@Html.IsSelected(controller: "CAUsuarios")">
-            <a href="#"><span class="nav-label">Meu Cadastro</span><span class="fa arrow"></span> </a>
+
+
+        <li class="@Html.IsSelected(controller: "Roles")">
+            <a href="#"><span class="nav-label">Meus Cadastros</span><span class="fa arrow"></span> </a>
             <ul class="nav nav-second-level">
-                <li class="@Html.IsSelected(action: "MeusDados")"><a href="@Url.Action("MeusDados", "CAUsuarios")">MEUS DADOS</a></li>
+                <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Roles")">Passeios/Eventos</a></li>
+                <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "Roles")">Cadastrar Novos</a></li>
+                <li class="@Html.IsSelected(action: "MeusRoles")"><a href="@Url.Action("MeusRoles", "Roles")">Que vou participar</a></li>
+
             </ul>
+        </li>
+
+        <li class="@Html.IsSelected(controller: "CAUsuarios")">
+            <a href="@Url.Action("MeusDados", "CAUsuarios")"> <span class="nav-label">Meus Dados</span></a>
         </li>
       
         <li class="@Html.IsSelected(controller: "Motoes")">

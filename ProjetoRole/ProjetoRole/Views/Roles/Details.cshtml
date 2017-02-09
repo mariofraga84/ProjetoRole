@@ -88,50 +88,69 @@
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered table-striped">
                             <tbody>
-                                <!--
-                                <tr>
 
-                                    <td class="issue-info">
-                                        <a href="#">
-                                            Message
-                                        </a>
-                                        <br />
-                                        <small>
-                                            This is issue with the coresponding note
-                                        </small>
-                                    </td>
-                                    <td>
-                                        Adrian Novak
-                                    </td>
-                                    <td>
-                                        12.02.2015
-                                    </td>
+                                @foreach (var item in Model.comentarios)
+                                {
 
-                                </tr>
+                                    <tr>
 
-                                <tr>
+                                        <td class="col-md-6">
 
-                                    <td class="issue-info">
-                                        <a href="#">
-                                            Meeting
-                                        </a>
-                                        <br />
-                                        <small>
-                                            Injected humour, or randomised words which don't l
-                                        </small>
-                                    </td>
-                                    <td>
-                                        Anna Johnson
-                                    </td>
-                                    <td>
-                                        13.05.2014
-                                    </td>
+                                            <strong>@item.tituloComentario</strong>     
 
-                                </tr>
-                                    -->
-                                Nenhum comentário  até o momento.
+                                            <br />
+                                            <small>
+                                                @item.textoComentario
+                                            </small>
+                                        </td>
+                                        <td class="issue-info col-md-4">
+                                            @item.CAUsuario.apelido
+                                        </td>
+                                        <td class="col-md-2">
+                                            @item.dataHora
+                                            @if (Model.eAdm == true)
+                                            {
+                                                <br />
+                                                <strong><a href="/Roles/ExcluirComentario/?pkComentario=@item.pkCometario&idRoleComentario=@item.fkRole"> Excluir Comentário</a></strong>
+                                            }
+                                        </td>
+
+                                        
+
+                                    </tr>
+                                }
+
+
+                                @if (Model.comentarios.Count == 0)
+                                {
+                                    <strong>Nenhum comentário  até o momento.</strong>
+                                }
                             </tbody>
                         </table>
+@if (Model.inscritoRole == true)
+{
+                        <form method="post" name="formComentario" action="/Roles/CadastraComentario/">
+
+                            <div class="form-group">
+                                <strong class="success">Envio de Novo Comentário: </strong>  <br />
+                                <br />
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        @Html.Hidden("idRoleComentario", Model.role.pkRole)
+                                        <div class="col-md-4"><input type="text" placeholder="Titulo" name="tituloComentario" id="tituloComentario" class="form-control"></div>
+                                        <div class="col-md-6"><input type="text" placeholder="Comentário" name="textoComentario" id="textoComentario" class="form-control"></div>
+                                        <div class="col-md-2">
+                                            <a href="javascript:formComentario.submit()"> <button class="btn btn-success" style="width:100%;" type="button"><i class="fa fa-plus"></i>   Enviar </button></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </form>
+}
+
                     </div>
 
 
@@ -143,10 +162,10 @@
 
         </div>
         <div class="col-md-4">
-            @{  
+            @{
                 if (Session["usuario"] == null)
                 {
-                    Response.Redirect("/Login/CAUsuarios?urlRetorno =" +Request.Url.AbsolutePath);
+                    Response.Redirect("/Login/CAUsuarios?urlRetorno =" + Request.Url.AbsolutePath);
                 }
 
                 ProjetoRole.Models.CAUsuario usuario = (ProjetoRole.Models.CAUsuario)Session["usuario"];
@@ -159,7 +178,7 @@
                         VÔCE JÁ ESTA INSCRITO NESTE EVENTO COM A SEGUINTE MOTO:  <br /><br />
 
                         @Model.descricaoMotoInscrita;
-                        <br/>
+                        <br />
                     </strong>
                     <br />
                     @Html.Hidden("id", Model.role.pkRole)
@@ -170,22 +189,22 @@
             }
             else
             {
-            if (motos.Count == 0)
-            {
-                <a href="/Motoes/Create?fkRole=@Model.role.pkRole"> <button class="btn btn-warning2" style="width:100%;" type="button"><i class="fa  icon-50"></i> <i class="fa fa-motorcycle icon-50"></i> <br /> <strong> Cadastre Pelo Menos uma Moto <br /> para Poder se Inscrever no Evento </strong> <br /></button></a>
-            }
-            else
-            {
-                <form method="get" action="/Roles/Participar/" name="formParticipacao">
-                    <strong>Selecione a Moto que vai Usar:</strong>  <br /><br />
-                    
+                if (motos.Count == 0)
+                {
+                    <a href="/Motoes/Create?fkRole=@Model.role.pkRole"> <button class="btn btn-warning2" style="width:100%;" type="button"><i class="fa  icon-50"></i> <i class="fa fa-motorcycle icon-50"></i> <br /> <strong> Cadastre Pelo Menos uma Moto <br /> para Poder se Inscrever no Evento </strong> <br /></button></a>
+                }
+                else
+                {
+                    <form method="get" action="/Roles/Participar/" name="formParticipacao">
+                        <strong>Selecione a Moto que vai Usar:</strong>  <br /><br />
+
                         @Html.DropDownList("pkMoto", null, htmlAttributes: new { @class = "form-control" })
-                    <br />
+                        <br />
                         @Html.Hidden("id", Model.role.pkRole)
-                
-                    <a href="javascript:formParticipacao.submit()" > <button class="btn btn-info" style="width:100%;" type="button"><i class="fa fa-plus icon-50"></i><br /> QUERO PARTICIPAR! <br /></button></a>
-                </form>
-            }
+
+                        <a href="javascript:formParticipacao.submit()"> <button class="btn btn-info" style="width:100%;" type="button"><i class="fa fa-plus icon-50"></i><br /> QUERO PARTICIPAR! <br /></button></a>
+                    </form>
+                }
             }
             <br />
             <br />
@@ -194,20 +213,20 @@
             </div>
 
             <div class="row">
-              @foreach (var item in Model.participantes)
-              {
-                  <div class="col-md-6">
-                    <div class="hpanel">
-                        <div class="panel-body text-center">
-                            <img alt="logo" class="img-circle img-small" src="~/Arquivos/Imagens/Pequenas/@item.CAUsuario.foto">
-                            <div class="m-t-sm">
-                                <strong>@item.CAUsuario.apelido</strong>
-                                <p class="small">@item.Moto.nomeMoto - @item.Moto.modeloMoto</p>
+                @foreach (var item in Model.participantes)
+                {
+                    <div class="col-md-6">
+                        <div class="hpanel">
+                            <div class="panel-body text-center">
+                                <img alt="logo" class="img-circle img-small" src="~/Arquivos/Imagens/Pequenas/@item.CAUsuario.foto">
+                                <div class="m-t-sm">
+                                    <strong>@item.CAUsuario.apelido</strong>
+                                    <p class="small">@item.Moto.nomeMoto - @item.Moto.modeloMoto</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-              }
+                }
             </div>
         </div>
     </div>

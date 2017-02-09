@@ -21,9 +21,8 @@ namespace ProjetoRole.Models
         [StringLength(100)]
         public string tituloComentario { get; set; }
 
-        [Column("comentario")]
         [StringLength(250)]
-        public string comentario1 { get; set; }
+        public string textoComentario { get; set; }
 
         public bool? ativo { get; set; }
 

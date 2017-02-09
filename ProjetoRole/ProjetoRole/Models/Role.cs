@@ -31,7 +31,6 @@ namespace ProjetoRole.Models
         public string titulo { get; set; }
 
         [Required]
-        [StringLength(250)]
         public string descricaoRole { get; set; }
 
         [StringLength(50)]
