@@ -63,7 +63,17 @@ namespace ProjetoRole.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Moto moto, HttpPostedFileBase FotoMoto, String fkRole)
         {
-            moto.fkUsuario = 1;
+            CAUsuario usuario;
+            if (Session["usuario"] == null)
+            {
+                return RedirectToAction("Login", "CAUsuarios", new { urlRetorno = Request.Url.AbsolutePath });
+            }
+            else
+            {
+                usuario = (CAUsuario)Session["usuario"];
+            }
+
+            moto.fkUsuario = usuario.pkUsuario;
 
             if (ModelState.IsValid)
             {
@@ -88,7 +98,7 @@ namespace ProjetoRole.Controllers
 
                 if (fkRole != null)
                 {
-                    return RedirectToAction("View", "Roles", new { id = fkRole });
+                    return RedirectToAction("Details", "Roles", new { id = fkRole });
                 }
 
                 return RedirectToAction("Index");

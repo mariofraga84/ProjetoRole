@@ -50,7 +50,7 @@ namespace ProjetoRole.Controllers
             if (msgErro != null)
             {
                 entRole.erro = new EntidadeErro();
-                entRole.erro.msgErro = funcoesUteis.acentosJavaScript(msgErro);
+                entRole.erro.msgErro = msgErro;
                 entRole.erro.msgTitulo = "Atenção";
                 entRole.erro.msgTipo = "warning";
                 entRole.erro.erro = true;
@@ -64,6 +64,21 @@ namespace ProjetoRole.Controllers
             List<EntidadeMoto> listaMotos = cMoto.carregaEntidadeMoto(db.Moto.Where(o => o.fkUsuario == usuario.pkUsuario && o.ativa == true).ToList());
 
             ViewBag.pkMoto = new SelectList(listaMotos, "pkMoto", "descricao");
+
+            if (db.Participamente.Where(o => o.fkRole == id && o.fkUsuario == usuario.pkUsuario).Any())
+            {
+                entRole.inscritoRole = true;
+
+                Participamente participante = db.Participamente.Where(o => o.fkRole == id && o.fkUsuario == usuario.pkUsuario).First();
+
+                entRole.descricaoMotoInscrita = participante.Moto.nomeMoto + " - " + participante.Moto.Marca.DescricaoMarca + " - " + participante.Moto.modeloMoto;
+
+            } else
+            {
+                entRole.inscritoRole = false;
+            }
+
+
 
             return View(entRole);
         }
@@ -359,14 +374,36 @@ namespace ProjetoRole.Controllers
             base.Dispose(disposing);
         }
 
-
-        // GET: Roles/Details/5
-        public async Task<ActionResult> Participar(int? id, int? pkMoto)
+        // POST: Roles/Delete/5
+        [HttpPost]
+        public async Task<ActionResult> CancelarParticipacao(int? id)
         {
             try
             {
-                
+                Session.Add("pkRole", id);
+                CAUsuario usuario;
+                if (Session["usuario"] == null)
+                {
+                    return RedirectToAction("Login", "CAUsuarios", new { urlRetorno = Request.Url.AbsolutePath });
+                }
+                usuario = (CAUsuario)Session["usuario"];
+                Participamente participanteValidacao = db.Participamente.Where(o => o.fkRole == id && o.fkUsuario == usuario.pkUsuario).First();
+                db.Participamente.Remove(participanteValidacao);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", "Roles", new { id = id});
+            }
+            catch (Exception er)
+            {
+                return RedirectToAction("Details", "Roles", new { id = id, msgErro = er.Message.ToString() });
+            }
 
+        }
+
+            // GET: Roles/Details/5
+            public async Task<ActionResult> Participar(int? id, int? pkMoto)
+        {
+            try
+            {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

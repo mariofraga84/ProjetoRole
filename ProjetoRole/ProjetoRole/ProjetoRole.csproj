@@ -224,6 +224,7 @@
       <Link>SqlServerTypes\x86\SqlServerSpatial110.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Ajuda\Ajuda.txt" />
     <Content Include="banco\05-02-2017.sql" />
     <Content Include="banco\06-02-2017.sql" />
     <Content Include="banco\07-02-2017.sql" />
@@ -2852,6 +2853,7 @@
     <Content Include="Views\Shared\_Right_Sidebar.cshtml" />
     <Content Include="Views\Home\View.cshtml" />
     <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Home\IndexInterno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

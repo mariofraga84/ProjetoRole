@@ -238,6 +238,11 @@ namespace ProjetoRole.Controllers
         // GET: CAUsuarios/Login
         public ActionResult Login(string urlRetorno)
         {
+            if (Session["usuario"] != null)
+            {
+                return RedirectToAction("IndexInterno", "Home");
+            }
+            
             FormularioLogin form = new FormularioLogin();
             form.urlRetorno = urlRetorno;
             return View(form);
@@ -278,7 +283,7 @@ namespace ProjetoRole.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("Index");
+                            return RedirectToAction("IndexInterno", "Home");
                         }                  
                     }                    
                 }
@@ -426,7 +431,7 @@ namespace ProjetoRole.Controllers
 
                 db.Entry(usuario).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("../CAUsuarios/Index");
+                return RedirectToAction("IndexInterno", "Home");
             }
             catch (Exception er)
             {
@@ -450,9 +455,8 @@ namespace ProjetoRole.Controllers
             if (Session["usuario"] != null)
             {
                 Session.RemoveAll();
-            }
-            Response.Redirect("../");
-            return View();
+            }            
+            return RedirectToAction("Index","Home");
         }
 
     }

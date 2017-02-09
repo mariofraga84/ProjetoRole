@@ -1,0 +1,39 @@
+﻿Gerenciamento de Inscrição em Passeio/Evento
+
+Situações:
+Usuário Sem Moto? OK
+		manda pra pagina de cadastro de moto de depois retorna pra pagina do evento.
+
+Usuário com uma moto? OK
+
+Usuário Inscrito pode Cancelar Inscrição no Evento
+	
+
+
+
+
+
+
+
+dica acento
+
+Html.Raw
+
+aceitos
+Consegui usando uma alternativa interessante: 
+Em meu alert usei o método Raw do HTML Helper e funcionou perfeitamente. 
+
+alert('@Html.Raw(Resources.MSG_SESSAO_EXPIRADA)');
+
+
+
+
+Redirect pagina inicial interna
+return RedirectToAction("IndexInterno", "Home");
+
+verifica login
+ CAUsuario usuario;
+            if (Session["usuario"] == null)
+            {              
+                return RedirectToAction("Login", "CAUsuarios", new { urlRetorno= Request.Url.AbsolutePath });
+            }

@@ -21,17 +21,19 @@ namespace ProjetoRole.Models.Entidades
     {
         public Role role { get; set; }
         public EntidadeErro erro { get; set; }
+        public bool inscritoRole { get; set; }
+        public String descricaoMotoInscrita { get; set; }
 
     }
 
     public class EntidadeErro
     {
         public bool erro { get; set; }
-        public string msgTitulo { get; set; }
-        public string msgErro { get; set; }
-        public string msgTipo { get; set; }
-        public string erroException { get; set; }
-        public string erroArquivo { get; set; }
+        public String msgTitulo { get; set; }
+        public String msgErro { get; set; }
+        public String msgTipo { get; set; }
+        public String erroException { get; set; }
+        public String erroArquivo { get; set; }
     }
 
 

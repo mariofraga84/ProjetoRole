@@ -25,6 +25,16 @@ namespace ProjetoRole.Controllers
             return View(ep);
         }
 
+        public async Task<ActionResult> IndexInterno()
+        {
+            EnidadePaginaIncial ep = new EnidadePaginaIncial();
+            List<Role> role = db.Role.Where(o => o.ativo == true).Include(r => r.CAUsuario).Include(r => r.TipoRole).ToList();
+            ep.listaFuturo = role;
+
+            return View(ep);
+        }
+
+
         public async Task<ActionResult> View(int id)
         {
             EntidadeRole entRole = new EntidadeRole();

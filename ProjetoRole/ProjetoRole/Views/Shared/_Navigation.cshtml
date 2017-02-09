@@ -24,7 +24,7 @@
                     <small class="text-muted">@usuario.nome <b class="caret"></b></small>
                 </a>
                 <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                    <li><a href="@Url.Action("Projectsx", "AppViewsx")">Meus Eventos / Rolés</a></li>
+                    <li><a href="@Url.Action("IndexInterno", "Home")">Meus Passeios / Eventos</a></li>
                     <li><a href="@Url.Action("index", "Motoes")">Minhas Motos</a></li>
                     <li><a href="@Url.Action("MeusDados", "CAUsuarios")">Meus Dados</a></li>
                     <li class="divider"></li>
@@ -37,13 +37,13 @@
 
     <ul class="nav metismenu" id="side-menu">
         <li class="@Html.IsSelected(controller: "Home")">
-            <a href="@Url.Action("Index", "Home")"> <span class="nav-label">Página Inicial</span>  </a>
+            <a href="@Url.Action("IndexInterno", "Home")"> <span class="nav-label">Página Inicial</span>  </a>
         </li>
        
         <li class="@Html.IsSelected(controller: "Roles")">
             <a href="#"><span class="nav-label">Rolés / Eventos</span><span class="fa arrow"></span> </a>
             <ul class="nav nav-second-level">
-                <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Roles")">Listar</a></li>
+                <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Inder", "Roles")">Listar</a></li>
                 <li class="@Html.IsSelected(action: "Create")"><a href="@Url.Action("Create", "Roles")">Cadastrar Novos</a></li>
                 <li class="@Html.IsSelected(action: "MeusRoles")"><a href="@Url.Action("MeusRoles", "Roles")">Meus Rolés</a></li>
                 <li class="@Html.IsSelected(action: "Passados")"><a href="@Url.Action("Passados", "Roles")">Que Já Aconteceram</a></li>

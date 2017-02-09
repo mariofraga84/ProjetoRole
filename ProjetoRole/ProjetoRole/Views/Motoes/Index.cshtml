@@ -59,7 +59,10 @@
                                     <tr>
 
                                         <td>
-                                            <img class="img-thumbnail" src="~/Arquivos/Imagens/Pequenas/@Html.DisplayFor(modelItem => item.foto)">
+                                        @if (item.foto != null)
+                                        {
+                                                <img class="img-thumbnail" src="~/Arquivos/Imagens/Pequenas/@Html.DisplayFor(modelItem => item.foto)">
+                                        }
 
                                         </td>
 

@@ -152,10 +152,27 @@
                 ProjetoRole.Models.CAUsuario usuario = (ProjetoRole.Models.CAUsuario)Session["usuario"];
                 List<ProjetoRole.Models.Moto> motos = new ProjetoRole.Controllers.MotoesController().ListaMotosUsuario(usuario.pkUsuario);
             }
-
-            @if (motos.Count == 0)
+            @if (Model.inscritoRole)
             {
-                <a href="/Motoes/Create?fkRole=@Model.role.pkRole"> <button class="btn btn-warning2" style="width:100%;" type="button"><i class="fa fa-plus icon-50"></i> <i class="fa fa-motorcycle icon-50"></i> <br /> <strong> Cadastre Pelo Menos uma Moto <br /> para Poder se Inscrever no Evento </strong> <br /></button></a>
+                <form method="post" action="/Roles/CancelarParticipacao/" name="formCancelarParticipacao">
+                    <strong>
+                        VÔCE JÁ ESTA INSCRITO NESTE EVENTO COM A SEGUINTE MOTO:  <br /><br />
+
+                        @Model.descricaoMotoInscrita;
+                        <br/>
+                    </strong>
+                    <br />
+                    @Html.Hidden("id", Model.role.pkRole)
+
+                    <a href="javascript:formCancelarParticipacao.submit()"> <button class="btn btn-danger" style="width:100%;" type="button"><i class="fa fa-remove icon-50"></i><br /> CANCELAR MINHA INSCRIÇÃO <br /></button></a>
+                </form>
+
+            }
+            else
+            {
+            if (motos.Count == 0)
+            {
+                <a href="/Motoes/Create?fkRole=@Model.role.pkRole"> <button class="btn btn-warning2" style="width:100%;" type="button"><i class="fa  icon-50"></i> <i class="fa fa-motorcycle icon-50"></i> <br /> <strong> Cadastre Pelo Menos uma Moto <br /> para Poder se Inscrever no Evento </strong> <br /></button></a>
             }
             else
             {
@@ -168,6 +185,7 @@
                 
                     <a href="javascript:formParticipacao.submit()" > <button class="btn btn-info" style="width:100%;" type="button"><i class="fa fa-plus icon-50"></i><br /> QUERO PARTICIPAR! <br /></button></a>
                 </form>
+            }
             }
             <br />
             <br />
@@ -305,8 +323,8 @@
     @if (erro.erro)
     {
         <script type="text/javascript">
-        $(window).load(function () {
-            swal("@erro.msgTitulo", "@HttpUtility.HtmlDecode(erro.msgErro)", "@erro.msgTipo");
+            $(window).load(function () {
+                swal("@Html.Raw(erro.msgTitulo)", "@Html.Raw(erro.msgErro)", "@erro.msgTipo");
         });
         </script>
     }
