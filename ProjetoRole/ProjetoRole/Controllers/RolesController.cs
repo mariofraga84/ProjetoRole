@@ -15,7 +15,7 @@ namespace ProjetoRole.Controllers
 {
     public class RolesController : Controller
     {
-        private BandoDeDados db = new BandoDeDados();
+        private BancoDeDados db = new BancoDeDados();
 
         // GET: Roles
         public async Task<ActionResult> Index()
@@ -47,7 +47,7 @@ namespace ProjetoRole.Controllers
             CAUsuario usuario;
             if (Session["usuario"] == null)
             {
-                return RedirectToAction("Login", "CAUsuarios", new { urlRetorno = Request.Url.AbsolutePath });
+                return RedirectToAction("View", "Home", new { id = id });
             }
             else
             {

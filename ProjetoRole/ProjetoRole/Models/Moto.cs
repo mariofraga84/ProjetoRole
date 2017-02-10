@@ -6,7 +6,7 @@ namespace ProjetoRole.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Moto")]
+    [Table("projetorole.Moto")]
     public partial class Moto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,12 +26,12 @@ namespace ProjetoRole.Models
 
         public int? fkMarca { get; set; }
 
-        public int? fkUsuario { get; set; }
-
         [StringLength(150)]
         public string foto { get; set; }
 
         public bool? ativa { get; set; }
+
+        public int? fkUsuario { get; set; }
 
         public virtual CAUsuario CAUsuario { get; set; }
 

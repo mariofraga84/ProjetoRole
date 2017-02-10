@@ -15,7 +15,7 @@ namespace ProjetoRole.Controllers
 {
     public class LocalidadesController : Controller
     {
-        private BandoDeDados db = new BandoDeDados();
+        private BancoDeDados db = new BancoDeDados();
 
         // GET: Localidades
         public async Task<ActionResult> Index()

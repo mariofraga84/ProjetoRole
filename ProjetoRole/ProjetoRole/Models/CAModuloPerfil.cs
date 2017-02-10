@@ -6,7 +6,7 @@ namespace ProjetoRole.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("CAModuloPerfil")]
+    [Table("projetorole.CAModuloPerfil")]
     public partial class CAModuloPerfil
     {
         [Key]

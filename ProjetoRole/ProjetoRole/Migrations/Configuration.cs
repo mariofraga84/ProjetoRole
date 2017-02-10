@@ -5,14 +5,14 @@ namespace ProjetoRole.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ProjetoRole.Models.BandoDeDados>
+    internal sealed class Configuration : DbMigrationsConfiguration<ProjetoRole.Models.BancoDeDados>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ProjetoRole.Models.BandoDeDados context)
+        protected override void Seed(ProjetoRole.Models.BancoDeDados context)
         {
             //  This method will be called after migrating to the latest version.
 

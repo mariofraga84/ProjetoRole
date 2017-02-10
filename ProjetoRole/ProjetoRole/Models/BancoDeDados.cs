@@ -5,13 +5,14 @@ namespace ProjetoRole.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class BandoDeDados : DbContext
+    public partial class BancoDeDados : DbContext
     {
-        public BandoDeDados()
-            : base("name=BandoDeDados")
+        public BancoDeDados()
+            : base("name=BancoDeDados1")
         {
         }
 
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<CAAction> CAAction { get; set; }
         public virtual DbSet<CAActionModulo> CAActionModulo { get; set; }
         public virtual DbSet<CAAuditoria> CAAuditoria { get; set; }
@@ -29,7 +30,6 @@ namespace ProjetoRole.Models
         public virtual DbSet<Moto> Moto { get; set; }
         public virtual DbSet<Participamente> Participamente { get; set; }
         public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TipoRole> TipoRole { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -116,10 +116,6 @@ namespace ProjetoRole.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<CAUsuario>()
-                .Property(e => e.senha)
-                .IsFixedLength();
-
-            modelBuilder.Entity<CAUsuario>()
                 .Property(e => e.fone)
                 .IsUnicode(false);
 
@@ -146,6 +142,11 @@ namespace ProjetoRole.Models
                 .HasForeignKey(e => e.fkUsuario);
 
             modelBuilder.Entity<CAUsuario>()
+                .HasMany(e => e.Moto)
+                .WithOptional(e => e.CAUsuario)
+                .HasForeignKey(e => e.fkUsuario);
+
+            modelBuilder.Entity<CAUsuario>()
                 .HasMany(e => e.Participamente)
                 .WithOptional(e => e.CAUsuario)
                 .HasForeignKey(e => e.fkUsuario);
@@ -156,12 +157,12 @@ namespace ProjetoRole.Models
                 .HasForeignKey(e => e.fkUsuario)
                 .WillCascadeOnDelete(false);
 
-         /*   modelBuilder.Entity<Comentario>()
+            modelBuilder.Entity<Comentario>()
                 .Property(e => e.textoComentario)
-                .IsUnicode(false); */
+                .IsUnicode(false);
 
             modelBuilder.Entity<Comentario>()
-                .HasMany(e => e.Comentario11)
+                .HasMany(e => e.Comentario1)
                 .WithOptional(e => e.Comentario2)
                 .HasForeignKey(e => e.fkComentario);
 
@@ -170,20 +171,25 @@ namespace ProjetoRole.Models
                 .WithOptional(e => e.Localidade)
                 .HasForeignKey(e => e.fkLocalidade);
 
+            modelBuilder.Entity<Localidade>()
+                .HasMany(e => e.Role)
+                .WithRequired(e => e.Localidade)
+                .HasForeignKey(e => e.fkLocalidade)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Marca>()
                 .HasMany(e => e.Moto)
                 .WithOptional(e => e.Marca)
                 .HasForeignKey(e => e.fkMarca);
 
-            modelBuilder.Entity<CAUsuario>()
-               .HasMany(e => e.Moto)
-               .WithOptional(e => e.CAUsuario)
-               .HasForeignKey(e => e.fkUsuario);
-
             modelBuilder.Entity<Moto>()
                 .HasMany(e => e.Participamente)
                 .WithOptional(e => e.Moto)
                 .HasForeignKey(e => e.fkMoto);
+
+            modelBuilder.Entity<Role>()
+                .Property(e => e.descricaoRole)
+                .IsUnicode(false);
 
             modelBuilder.Entity<Role>()
                 .HasMany(e => e.Comentario)
@@ -205,12 +211,6 @@ namespace ProjetoRole.Models
                 .WithRequired(e => e.TipoRole)
                 .HasForeignKey(e => e.fkTipoRole)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Localidade>()
-            .HasMany(e => e.Role)
-            .WithOptional(e => e.Localidade)
-            .HasForeignKey(e => e.fkLocalidade);
-
         }
     }
 }

@@ -6,7 +6,7 @@ namespace ProjetoRole.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Foto")]
+    [Table("projetorole.Foto")]
     public partial class Foto
     {
         [Key]

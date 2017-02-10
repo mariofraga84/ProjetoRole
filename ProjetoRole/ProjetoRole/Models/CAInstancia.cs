@@ -6,7 +6,7 @@ namespace ProjetoRole.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("CAInstancia")]
+    [Table("projetorole.CAInstancia")]
     public partial class CAInstancia
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

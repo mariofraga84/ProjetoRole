@@ -6,13 +6,14 @@ namespace ProjetoRole.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Localidade")]
+    [Table("projetorole.Localidade")]
     public partial class Localidade
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Localidade()
         {
             CAUsuario = new HashSet<CAUsuario>();
+            Role = new HashSet<Role>();
         }
 
         [Key]

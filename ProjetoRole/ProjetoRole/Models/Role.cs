@@ -6,7 +6,7 @@ namespace ProjetoRole.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Role")]
+    [Table("projetorole.Role")]
     public partial class Role
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -30,6 +30,7 @@ namespace ProjetoRole.Models
         [StringLength(100)]
         public string titulo { get; set; }
 
+        [Column(TypeName = "text")]
         [Required]
         public string descricaoRole { get; set; }
 
@@ -50,6 +51,14 @@ namespace ProjetoRole.Models
 
         public TimeSpan horaRole { get; set; }
 
+        public int fkLocalidade { get; set; }
+
+        public bool? ativo { get; set; }
+
+        public bool? publico { get; set; }
+
+        public bool? realizado { get; set; }
+
         public virtual CAUsuario CAUsuario { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -58,22 +67,11 @@ namespace ProjetoRole.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Foto> Foto { get; set; }
 
+        public virtual Localidade Localidade { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Participamente> Participamente { get; set; }
 
         public virtual TipoRole TipoRole { get; set; }
-
-
-        [Display(Name = "Localidade")]
-        public int? fkLocalidade { get; set; }
-
-        public virtual Localidade Localidade { get; set; }
-
-        public bool? ativo { get; set; }
-
-        public bool? publico { get; set; }
-
-        public bool? realizado { get; set; }
-
     }
 }

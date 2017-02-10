@@ -6,7 +6,7 @@ namespace ProjetoRole.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("CAActionModulo")]
+    [Table("projetorole.CAActionModulo")]
     public partial class CAActionModulo
     {
         [Key]

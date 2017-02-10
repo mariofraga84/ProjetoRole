@@ -14,7 +14,7 @@ namespace ProjetoRole.Controllers
 {
     public class HomeController : Controller
     {
-        private BandoDeDados db = new BandoDeDados();
+        private BancoDeDados db = new BancoDeDados();
 
         public async Task<ActionResult> Index()
         {
@@ -44,10 +44,11 @@ namespace ProjetoRole.Controllers
             Role role = db.Role.Where(o => o.ativo == true && o.pkRole == id).First();
             entRole.role = role;
 
+                
 
-             List<Participamente> listaParticipantes = db.Participamente.Where(o => o.fkRole == id && o.autorizado == true).ToList();
+             entRole.participantes = db.Participamente.Where(o => o.fkRole == id && o.autorizado == true).ToList();
 
-             entRole.participantes = listaParticipantes;
+                entRole.comentarios = db.Comentario.Where(o => o.fkRole == id && o.ativo == true).ToList();
 
                 return View(entRole);
             }

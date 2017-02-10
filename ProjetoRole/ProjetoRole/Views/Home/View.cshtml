@@ -2,8 +2,34 @@
 @{
     Layout = "~/Views/Shared/_Layout_Landing.cshtml";
     ViewBag.Title = Model.role.titulo;
+    string urlSite = "http://www.todemoto.com/Home/View?id=" + Model.role.pkRole;
+    string titulo = Model.role.titulo + " - Tô de Moto";
+    string descricao = Model.role.descricaoRole;
+    string urlImagem;
+    if (Model.role.capa != null) {
+        urlImagem = "http://www.todemoto.com/Arquivos/Imagens/Grandes/" + Model.role.capa;
+    } else
+    {
+        urlImagem = "http://www.todemoto.com/Arquivos/Imagens/Grandes/padrao.jpg";
+    }
 }
 
+<meta property="og:url" content="@urlSite" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="@titulo" />
+<meta property="og:description" content="@descricao" />
+<meta property="og:image" content="@urlImagem" />
+
+
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -53,6 +79,17 @@
         </div>
     </div>
 </header>
+
+ <script type="text/javascript">
+	var GA = function() {};
+     GA.prototype.send;
+	var ga = new GA();
+</script>
+<script type="text/javascript" src="http://rdeveloper.com.br/sharingan/dist/whatsapp-button.js"></script>
+
+
+
+
 
 <div class="container">
     <div class="normalheader transition">
@@ -136,48 +173,42 @@
                         <div class="table-responsive">
                             <table class="table table-hover table-bordered table-striped">
                                 <tbody>
-                                    <!--
-                                    <tr>
-                                        
-                                        <td class="issue-info">
-                                            <a href="#">
-                                                Message
-                                            </a>
-                                            <br />
-                                            <small>
-                                                This is issue with the coresponding note
-                                            </small>
-                                        </td>
-                                        <td>
-                                            Adrian Novak
-                                        </td>
-                                        <td>
-                                            12.02.2015
-                                        </td>
-                                      
-                                    </tr>
-                                    
-                                    <tr>
-                                      
-                                        <td class="issue-info">
-                                            <a href="#">
-                                                Meeting
-                                            </a>
-                                            <br />
-                                            <small>
-                                                Injected humour, or randomised words which don't l
-                                            </small>
-                                        </td>
-                                        <td>
-                                            Anna Johnson
-                                        </td>
-                                        <td>
-                                            13.05.2014
-                                        </td>
-                                       
-                                    </tr>
-                                        -->
-                                    Nenhum comentário  até o momento.
+                                    @foreach (var item in Model.comentarios)
+                                    {
+
+                                        <tr>
+
+                                            <td class="col-md-6">
+
+                                                <strong>@item.tituloComentario</strong>
+
+                                                <br />
+                                                <small>
+                                                    @item.textoComentario
+                                                </small>
+                                            </td>
+                                            <td class="issue-info col-md-4">
+                                                @item.CAUsuario.apelido
+                                            </td>
+                                            <td class="col-md-2">
+                                                @item.dataHora
+                                                @if (Model.eAdm == true)
+                                                {
+                                                    <br />
+                                                    <strong><a href="/Roles/ExcluirComentario/?pkComentario=@item.pkCometario&idRoleComentario=@item.fkRole"> Excluir Comentário</a></strong>
+                                                }
+                                            </td>
+
+
+
+                                        </tr>
+                                    }
+
+
+                                    @if (Model.comentarios.Count == 0)
+                                    {
+                                        <strong>Nenhum comentário  até o momento.</strong>
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -192,14 +223,27 @@
             </div>
             <div class="col-md-4">
 
-                <a href="/Roles/Details?id=@Model.role.pkRole"> <button class="btn btn-info" style="width:100%;" type="button"><i class="fa fa-plus"></i><br /> QUERO PARTICIPAR! <br /></button></a>
+                <a href="/CAUsuarios/Login?urlRetorno=/Roles/Details?id=@Model.role.pkRole"> <button class="btn btn-info" style="width:100%;" type="button"><i class="fa fa-plus"></i><br /> QUERO PARTICIPAR! <br /></button></a>
                 <br />
                 <br />
-                <div class="font-bold m-b-sm">
-                   Alguns dos Participantes Confirmados
-                </div>
-
                
+                    <button class="btn btn-info" style="width:100%; height:70px; background-color: #4267b2; border:0px;" type="button">
+                    <div class="fb-share-button" data-href="@urlSite" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Compartilhar</a></div>
+                    </button>
+
+                    <br />
+                <br />
+                  <p class="text-center">
+                        <a href="whatsapp://send" onclick="ga.send('btn3');" data-text="Achei um Passeio / Encontro Massa! vamos participar? Acessa o site: "  data-href="" class="wa_btn wa_btn_l" style="display:none">Compartilhar Whatsapp</a>
+                    </p>
+               
+               
+                <br />
+                    <div class="font-bold m-b-sm">
+                        Alguns dos Participantes Confirmados
+                    </div>
+
+
                     <div class="row">
                         @foreach (var item in Model.participantes)
                         {
@@ -216,8 +260,8 @@
                             </div>
                         }
                     </div>
-               
-            </div>
+
+</div>
         </div>
     </div>
 

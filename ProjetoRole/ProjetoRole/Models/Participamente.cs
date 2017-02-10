@@ -6,7 +6,7 @@ namespace ProjetoRole.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Participamente")]
+    [Table("projetorole.Participamente")]
     public partial class Participamente
     {
         [Key]

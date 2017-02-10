@@ -6,7 +6,7 @@ namespace ProjetoRole.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("CALogAcesso")]
+    [Table("projetorole.CALogAcesso")]
     public partial class CALogAcesso
     {
         [Key]

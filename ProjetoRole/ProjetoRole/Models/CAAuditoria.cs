@@ -6,7 +6,7 @@ namespace ProjetoRole.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("CAAuditoria")]
+    [Table("projetorole.CAAuditoria")]
     public partial class CAAuditoria
     {
         [Key]
